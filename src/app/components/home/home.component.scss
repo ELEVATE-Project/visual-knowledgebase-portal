@@ -1,0 +1,13 @@
+.categories{
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    top: 15rem;
+    z-index: 2;
+}
+
+.card{
+    margin: 1rem 1rem;
+}

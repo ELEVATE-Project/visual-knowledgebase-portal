@@ -1,0 +1,33 @@
+
+h1{
+    font-size: clamp(2rem,1rem,5rem);
+    color: aliceblue;
+    font-weight: bold;
+}
+
+.banner{
+    background-color: var(--secondary-500);
+    min-height: 20rem;
+    display:grid;
+    place-items: center;
+    padding: 2rem;
+
+}
+
+.content{
+    margin-bottom: 5rem;
+}
+
+input{
+    margin-top: 2rem;
+    background-color: #44C194;
+    border-radius: 1rem;
+    width: 100%;
+    padding: 0.2rem 0.5rem;
+    height: clamp(1rem,2rem,3rem);
+    border: aliceblue solid 0.1rem;
+}
+
+input::placeholder{
+    color: aliceblue;
+}

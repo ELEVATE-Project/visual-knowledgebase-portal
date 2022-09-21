@@ -2,6 +2,10 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
+@use '/src/assets/variables';
+@use '/src/assets/flexbox';
+@use '/src/assets/position';
+@use '/src/assets/sizing';
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -12,7 +16,7 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$visual-knowledgebase-primary: mat.define-palette(mat.$indigo-palette);
+$visual-knowledgebase-primary: mat.define-palette(mat.$teal-palette,A700);
 $visual-knowledgebase-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
@@ -28,6 +32,7 @@ $visual-knowledgebase-theme: mat.define-light-theme((
   )
 ));
 
+
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
@@ -37,3 +42,22 @@ $visual-knowledgebase-theme: mat.define-light-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.btn-primary{
+  box-sizing: border-box;
+  background-color: var(--secondary-600);
+  color: aliceblue;
+  border: var(--secondary-600) solid 0.01rem;
+  border-radius: 0.8rem;
+  padding: 0.3rem 1.5rem;
+}
+
+.btn-secondary{
+  box-sizing: border-box;
+  color: var(--secondary-600);
+  background-color: aliceblue;
+  border: var(--secondary-600) solid 0.01rem;
+  border-radius: 0.8rem;
+  padding: 0.3rem 1.3rem;
+}
+

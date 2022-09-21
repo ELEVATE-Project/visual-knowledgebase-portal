@@ -1,0 +1,33 @@
+<span style="display: flex;flex-direction: row;gap: 2rem;">
+    <mat-card  class="mat-elevation-z8">
+        <mat-icon [matMenuTriggerFor]="menu" style="align-self: flex-end; cursor: pointer;">more_vert</mat-icon>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+      </mat-menu>
+  <mat-card-header>
+    <mat-icon mat-card-avatar md-46>{{cardDetail?.icon}}</mat-icon>
+  </mat-card-header>
+  <mat-card-title>{{ cardDetail?.title }}</mat-card-title>
+  <mat-card-content>{{ cardDetail?.description }}</mat-card-content>
+</mat-card>
+
+<ng-container *ngIf="last">
+    <mat-card  class="mat-elevation-z8" (click)="redirectToBlog()">
+        <mat-card-header>
+        <mat-icon mat-card-avatar md-46>add_circle</mat-icon>
+        </mat-card-header>
+        <mat-card-title>Create</mat-card-title>
+        <mat-card-content>Click here to add a new category</mat-card-content>
+
+        </mat-card>
+</ng-container>
+</span>
+
+

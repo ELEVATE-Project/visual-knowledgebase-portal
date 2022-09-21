@@ -1,0 +1,27 @@
+mat-card {
+    max-width: 15rem;
+    min-height: 7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+:host ::ng-deep .mat-card-header-text { margin: 0; }
+
+mat-icon.mat-card-avatar {
+    width: 3rem;
+    height: 3rem;
+    font-size: 3rem;
+    color: #676767;
+}
+
+mat-card-title{
+    color: #464646;
+}
+
+mat-card-content{
+    color: #676767;
+    font-size: medium;
+}
