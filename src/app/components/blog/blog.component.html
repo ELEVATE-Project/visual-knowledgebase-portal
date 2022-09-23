@@ -1,2 +1,150 @@
-<p>blog works!</p>
-<ckeditor [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor>
+<div class="d-flex flex-jc-center flex-ai-center blog">
+  <mat-card>
+    <h1 style="font-weight: 500;">New category</h1>
+    <hr>
+    <mat-stepper orientation="vertical" [linear]="true" #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup" class="matStepDirection">
+          <ng-template matStepLabel
+            >Provide a category details here</ng-template
+          >
+          <mat-form-field appearance="outline">
+            <mat-label>Category</mat-label>
+            <input
+              matInput
+              placeholder="Ex. Account, Engineering etc"
+              formControlName="categoryName"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea
+              matInput
+              required
+              formControlName="categoryDescription"
+            ></textarea>
+          </mat-form-field>
+          <span style="display: flex; gap: 1rem; flex-flow: row wrap">
+            <label for="image_uploads">{{ fileName }} </label>
+            <input
+              type="file"
+              id="image_uploads"
+              name="image_uploads"
+              accept=".jpg, .jpeg, .png, .svg"
+              hidden
+              (change)="iconChoosen($event)"
+            />
+            <button
+              mat-button
+              matStepperNext
+              class="btn-primary uploadIcon"
+              style="height: 60%; align-self: center"
+            >
+              Upload
+            </button>
+          </span>
+          <ng-conatiner  formArrayName="subCategories" *ngFor="let sub of subCategories.controls;let i=index">
+            <mat-card class="mat-elevation-z8" style="margin-top: 1rem;margin-bottom: 1rem;">
+              <mat-form-field style="width: 100%;" appearance="outline">
+                <mat-label>Sub-category</mat-label>
+                <input
+                  matInput
+                  placeholder="Ex. Login in account"
+                  [formControlName]="i"
+                />
+              </mat-form-field>
+              <ckeditor [editor]="Editor" [(ngModel)]="blog" [ngModelOptions]="{standalone:true}"></ckeditor>
+            </mat-card>
+ 
+          </ng-conatiner>
+          <div class="btnsGap" style="margin-top: 0.5rem">
+            <button mat-button matStepperNext class="btn-secondary">
+              Next
+            </button>
+            <button mat-button matStepperNext class="btn-secondary" (click)="getSubCategories()">
+              Add sub-category
+            </button>
+          </div>
+        </form>
+      </mat-step>
+      <!-- <mat-step [stepControl]="firstFormGroup" optional="true">
+        <form [formGroup]="firstFormGroup" class="matStepDirection">
+          <ng-template matStepLabel
+            >Provide a sub-category for
+            {{ firstFormGroup.value.categoryName }}</ng-template
+          >
+          <mat-form-field appearance="outline">
+            <mat-label>Sub-category</mat-label>
+            <input
+              matInput
+              placeholder="Ex. Login in account"
+              formControlName="categoryName"
+            />
+          </mat-form-field>
+          <div class="btnsGap">
+            <button mat-button matStepperPrevious class="btn-secondary">
+              Back
+            </button>
+            <button mat-button matStepperNext class="btn-secondary">
+              Next
+            </button>
+          </div>
+        </form>
+      </mat-step> -->
+      <mat-step [stepControl]="firstFormGroup">
+        <ng-template matStepLabel>Provide a solution here</ng-template>
+        <div class="btnsGap btnMargin">
+          <button mat-button matStepperPrevious class="btn-secondary">
+            Back
+          </button>
+          <button mat-button matStepperNext class="btn-secondary">Next</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Confirm</ng-template>
+        <p>Please confirm to submit</p>
+        <div class="btnsGap">
+          <button mat-button matStepperPrevious class="btn-secondary">
+            Back
+          </button>
+          <button mat-button (click)="stepper.reset()" class="btn-secondary">
+            Reset
+          </button>
+          <button mat-button class="btn-primary">Submit</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </mat-card>
+</div>
+
+{{blog}}
+<!-- temporary template ignore
+<ng-template let-category="category" #subCategory>
+  <mat-stepper orientation="vertical" [linear]="true" #stepper>
+  <mat-step [stepControl]="firstFormGroup" optional="true">
+    <form [formGroup]="firstFormGroup" class="matStepDirection">
+      <ng-template matStepLabel
+        >Provide a sub-category for
+        {{ category.categoryName }}</ng-template
+      >
+      <mat-form-field appearance="outline">
+        <mat-label>Sub-category</mat-label>
+        <input
+          matInput
+          placeholder="Ex. Login in account"
+        />
+      </mat-form-field>
+      <div class="btnsGap">
+        <button mat-button matStepperPrevious class="btn-secondary">
+          Back
+        </button>
+        <button mat-button matStepperNext class="btn-secondary">
+          Next
+        </button>
+      </div>
+    </form>
+  </mat-step>
+</mat-stepper>
+</ng-template>
+ -->

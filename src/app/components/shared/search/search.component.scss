@@ -1,0 +1,24 @@
+:host ::ng-deep {
+    .mat-form-field-wrapper {
+        padding-bottom: 0;
+    }
+
+    .mat-form-field-subscript-wrapper {
+        margin: 0;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-outline{
+        color: aliceblue;
+    }
+}
+
+
+
+.mat-form-field{
+    width: 100%;
+    height: clamp(1rem,2rem,3rem);
+}
+
+input::placeholder,mat-icon,mat-label{
+    color: aliceblue;
+}
