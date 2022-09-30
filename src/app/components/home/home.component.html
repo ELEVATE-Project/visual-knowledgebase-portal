@@ -2,7 +2,7 @@
     <app-banner class="absolute w-100 h-auto zindex-1"></app-banner>
     <div class="categories">
         <ng-container *ngFor="let item of categories;index as i; last as isLast">
-            <app-card class="card" [cardDetail]="item" [last]="isLast"></app-card>
+            <app-card class="card" [cardDetail]="item" [last]="isLast" (newCategory)="newCategory($event)"></app-card>
           </ng-container>
     </div>
 </div>

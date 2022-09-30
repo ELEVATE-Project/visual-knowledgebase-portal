@@ -1,5 +1,15 @@
-.blog {
+.main{
     padding: 1rem 3rem;
+    margin: 1rem 3rem;
+}
+.blog {
+    display: flex;
+    flex: row wrap;
+    padding: 1rem 0;
+}
+
+.article{
+    padding: 1rem 1rem;
 }
 
 .btnsGap {
@@ -39,4 +49,46 @@ form label{
     form label{
         width:100%
     }
+}
+
+.example-tree-invisible {
+    display: none;
+  }
+  
+  .example-tree ul,
+  .example-tree li {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  /*
+   * This padding sets alignment of the nested nodes.
+   */
+  .example-tree .mat-nested-tree-node div[role=group] {
+    padding-left: 40px;
+  }
+  
+  /*
+   * Padding for leaf nodes.
+   * Leaf nodes need to have padding so as to align with other non-leaf nodes
+   * under the same parent.
+   */
+  .example-tree div[role=group] > .mat-tree-node {
+    padding-left: 40px;
+  }
+
+.toggleBtn{
+    border: none;
+    background-color: white;
+}
+
+h3{
+    margin: 0%;
+}
+
+.treeNode{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
 }

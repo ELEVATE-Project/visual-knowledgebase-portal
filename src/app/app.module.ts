@@ -13,6 +13,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatTreeModule} from '@angular/material/tree';
+import {MatDialogModule} from '@angular/material/dialog';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { BannerComponent } from './components/shared/banner/banner.component';
 import { HomeComponent } from './components/home/home.component';
@@ -43,6 +45,8 @@ import { SearchComponent } from './components/shared/search/search.component';
     MatInputModule,
     MatFormFieldModule,
     MatStepperModule,
+    MatTreeModule,
+    MatDialogModule,
     CKEditorModule
   ],
   providers: [],
