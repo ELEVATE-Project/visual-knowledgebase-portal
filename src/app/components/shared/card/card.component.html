@@ -1,8 +1,8 @@
 <span style="display: flex;flex-direction: row;gap: 2rem;">
-    <mat-card  class="mat-elevation-z8" (click)="redirectToBlog()">
+    <mat-card  class="mat-elevation-z8" >
         <mat-icon [matMenuTriggerFor]="menu" style="align-self: flex-end; cursor: pointer;">more_vert</mat-icon>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item (click)="$event.stopPropagation();redirectToBlog()">
           <mat-icon>edit</mat-icon>
           <span>Edit</span>
         </button>
@@ -69,7 +69,6 @@
           Upload
         </button>
       </span>
-      <ckeditor [editor]="Editor" formControlName="blog"></ckeditor>
     </form>
   </div>
   <div mat-dialog-actions class="btnsGap" style="margin-top: 0.5rem">

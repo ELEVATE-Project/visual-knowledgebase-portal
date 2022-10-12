@@ -44,7 +44,6 @@ const TREE_DATA: CategoryNode[] = [
         children: [
           {
             name: 'Reset password',
-            blog: `<h2><strong>Reset your password</strong></h2><p>Who can use this feature</p><p>Supported on <a href="https://help.figma.com/hc/en-us/articles/360040328273">any team or plan</a>.</p><p>If you've forgotten your password or are unable to access your account, you can reset your password from the log in screen. You can only use this method if you log in to Figma using an email address and unique password.</p><p>If you log into Figma using Google SSO, your email address and password is <strong>Managed by Google</strong>. You will need to change your password in your Google account: <a href="https://support.google.com/accounts/answer/41078?co=GENIE.Platform%3DDesktop&amp;hl=en">Change or reset your password</a> by Google Support.</p><p>If you log in to Figma with your company email address via SAML SSO, your organization's<a href="https://help.figma.com/hc/en-us/articles/360040532333"> identity provider</a> will manage your login details. We recommend contacting your IT department, or an organization admin, for help updating your email address or password there.</p><p><strong>Note</strong>: If you are already logged in to your Figma account and know your current password, you can update your password from your account settings. <a href="https://help.figma.com/hc/en-us/articles/360039820114"><strong>Manage your login details →</strong></a></p><h2><strong>Forgot password</strong></h2><ol><li>Head to&nbsp;<a href="http://figma.com/">figma.com</a>&nbsp;or open the Figma desktop app.</li><li>Select <strong>Log in</strong> from the navigation menu.</li><li>Click <strong>Forgot password?</strong> from the modal.</li><li>Enter the <strong>Email</strong> for your account and click <strong>Reset password</strong>. If there is an account registered under that email address, Figma will send a password reset email to your address.</li><li>Open the password reset email and click <strong>Reset your password</strong>.</li><li>Enter your new password in the <strong>Choose a new password</strong> field and then <strong>Confirm password</strong>.</li><li>Click <strong>Submit</strong> to update your password.</li></ol>`,
           },
           {
             name: 'Two-factor authentication',
@@ -144,6 +143,13 @@ export class BlogComponent implements OnInit {
       this.dialogRef = this.dialog.open(this.sugestionDialog, config);
       return this.dialogRef;
     }
+  }
+
+  editBlog(){
+    this.firstFormGroup.patchValue({
+      blog:this.dataSource.data[0].blog
+    })
+    this.openSuggestion();
   }
   saveCategory(node?: CategoryNode) {
     if (node !== undefined) {

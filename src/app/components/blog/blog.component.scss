@@ -5,6 +5,7 @@
 .blog {
     display: flex;
     flex: row wrap;
+    justify-content: center;
     padding: 1rem 0;
 }
 
@@ -91,4 +92,13 @@ h3{
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+}
+.mat-dialog-content{
+    height: 60vh !important;
+}
+
+ng-deep{
+    .customEditor .ck.ck-editor__main>.ck-editor__editable{
+        height: 50vh !important;
+    }
 }
