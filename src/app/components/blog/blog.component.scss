@@ -93,12 +93,4 @@ h3{
     justify-content: flex-start;
     align-items: flex-start;
 }
-.mat-dialog-content{
-    height: 60vh !important;
-}
 
-ng-deep{
-    .customEditor .ck.ck-editor__main>.ck-editor__editable{
-        height: 50vh !important;
-    }
-}

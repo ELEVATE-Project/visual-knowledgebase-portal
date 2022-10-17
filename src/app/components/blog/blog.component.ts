@@ -65,14 +65,23 @@ const TREE_DATA: CategoryNode[] = [
 })
 export class BlogComponent implements OnInit {
   @ViewChild('categoryDialog') categoryDialog: TemplateRef<any> | undefined;
-  @ViewChild('sugestionDialog') sugestionDialog:TemplateRef<any> | undefined;
+  @ViewChild('sugestionDialog') sugestionDialog: TemplateRef<any> | undefined;
   public Editor = ClassicEditor;
   ckConfig = {
     toolbar: {
-      items: [ 'bold', 'italic', '|', 'undo', 'redo', '-', 'numberedList', 'bulletedList' ],
-      shouldNotGroupWhenFull: true
-  }
-  }
+      items: [
+        'bold',
+        'italic',
+        '|',
+        'undo',
+        'redo',
+        '-',
+        'numberedList',
+        'bulletedList',
+      ],
+      shouldNotGroupWhenFull: true,
+    },
+  };
   public blog = '';
   dialogRef: any;
   fileName: string = 'Choose images to upload icon (svg, jpg, png)';
@@ -115,7 +124,7 @@ export class BlogComponent implements OnInit {
     if (this.categoryDialog) {
       const config = {
         width: '50%',
-        data: node,
+        data: node
       };
       this.dialogRef = this.dialog.open(this.categoryDialog, config);
       return this.dialogRef;
@@ -133,23 +142,26 @@ export class BlogComponent implements OnInit {
     }
   }
 
-
-  openSuggestion(){
-    const config = {
-      width:'80%',
-      height:'80%'
+  openSuggestion(edit?: any) {
+    if (!edit) {
+      this.firstFormGroup.patchValue({
+        blog: '',
+      });
     }
-    if(this.sugestionDialog){
+    const config = {
+      width: '80%',
+    };
+    if (this.sugestionDialog) {
       this.dialogRef = this.dialog.open(this.sugestionDialog, config);
       return this.dialogRef;
     }
   }
 
-  editBlog(){
+  editBlog() {
     this.firstFormGroup.patchValue({
-      blog:this.dataSource.data[0].blog
-    })
-    this.openSuggestion();
+      blog: this.dataSource.data[0].blog,
+    });
+    this.openSuggestion(true);
   }
   saveCategory(node?: CategoryNode) {
     if (node !== undefined) {

@@ -12,7 +12,8 @@
         </button>
       </mat-menu>
   <mat-card-header>
-    <mat-icon mat-card-avatar md-46>{{cardDetail?.icon}}</mat-icon>
+    <mat-icon mat-card-avatar *ngIf="cardDetail?.icon" md-46>{{ cardDetail?.icon }}</mat-icon>
+    <mat-icon mat-card-avatar *ngIf="!cardDetail?.icon" md-46>info</mat-icon>
   </mat-card-header>
   <mat-card-title>{{ cardDetail?.name }}</mat-card-title>
   <mat-card-content>{{ cardDetail?.description }}</mat-card-content>
