@@ -13,7 +13,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -67,8 +66,8 @@ export class CardComponent implements OnInit {
       console.log($event);
     }
   }
-  save(){
-    console.log('blog',this.firstFormGroup.value.blog)
-    this.newCategory.emit({data:this.firstFormGroup.value})
+  save() {
+    console.log('blog', this.firstFormGroup.value.blog);
+    this.newCategory.emit({ data: this.firstFormGroup.value });
   }
 }
