@@ -1,0 +1,28 @@
+<div class="whole-content">
+  <!-- <div class="sidebar">sidebar</div> -->
+  <div class="main-content">
+    <div class="category">
+      <h1 class="title">
+        {{ categories.length }} search results for "{{ categories[0]['name'] }}" in
+        all categories
+      </h1>
+      <div class="horizontal"><hr /></div>
+
+      <div class="total-content"
+        *ngFor="
+          let category of categories
+            | paginate: { itemsPerPage: tableSize, currentPage: page }
+        "
+      >
+        <h2 class="name">{{ category['name'] }}</h2>
+        <p class="content">{{ category['content'] }}</p>
+      </div>
+    </div>
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="page = $event"
+    ></pagination-controls>
+    <!-- <mat-paginator [length]="10" (page)="onChangePage($event)"> </mat-paginator> -->
+  </div>
+</div>

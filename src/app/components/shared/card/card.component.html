@@ -1,8 +1,8 @@
 <span style="display: flex;flex-direction: row;gap: 2rem;">
-    <mat-card  class="mat-elevation-z8" (click)="redirectToBlog()">
+    <mat-card  class="mat-elevation-z8" >
         <mat-icon [matMenuTriggerFor]="menu" style="align-self: flex-end; cursor: pointer;">more_vert</mat-icon>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item (click)="$event.stopPropagation();redirectToBlog()">
           <mat-icon>edit</mat-icon>
           <span>Edit</span>
         </button>
@@ -12,28 +12,31 @@
         </button>
       </mat-menu>
   <mat-card-header>
-    <mat-icon mat-card-avatar md-46>{{cardDetail?.icon}}</mat-icon>
+    <mat-icon mat-card-avatar *ngIf="cardDetail?.icon" md-46>{{ cardDetail?.icon }}</mat-icon>
+    <mat-icon mat-card-avatar *ngIf="!cardDetail?.icon" md-46>info</mat-icon>
   </mat-card-header>
   <mat-card-title>{{ cardDetail?.name }}</mat-card-title>
   <mat-card-content>{{ cardDetail?.description }}</mat-card-content>
 </mat-card>
 
-<ng-container *ngIf="last">
-    <mat-card  class="mat-elevation-z8" (click)="open()">
-        <mat-card-header>
+  <ng-container *ngIf="last">
+    <mat-card class="mat-elevation-z8" (click)="open()">
+      <mat-card-header>
         <mat-icon mat-card-avatar md-46>add_circle</mat-icon>
-        </mat-card-header>
-        <mat-card-title>Create</mat-card-title>
-        <mat-card-content>Click here to add a new category</mat-card-content>
-
-        </mat-card>
-</ng-container>
+      </mat-card-header>
+      <mat-card-title>Create</mat-card-title>
+      <mat-card-content>Click here to add a new category</mat-card-content>
+    </mat-card>
+  </ng-container>
 </span>
 
 <ng-template #categoryDialog>
   <h1 mat-dialog-title>New category</h1>
   <div mat-dialog-content>
-    <form [formGroup]="firstFormGroup" style="display: flex; gap: 0.5rem; flex-flow: column wrap">
+    <form
+      [formGroup]="firstFormGroup"
+      style="display: flex; gap: 0.5rem; flex-flow: column wrap"
+    >
       <mat-form-field appearance="outline">
         <mat-label>Category</mat-label>
         <input
@@ -45,11 +48,7 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Description</mat-label>
-        <textarea
-          matInput
-          required
-          formControlName="description"
-        ></textarea>
+        <textarea matInput required formControlName="description"></textarea>
       </mat-form-field>
       <span style="display: flex; gap: 1rem; flex-flow: row wrap">
         <label for="image_uploads">{{ fileName }} </label>
@@ -69,26 +68,30 @@
           Upload
         </button>
       </span>
-      <ckeditor [editor]="Editor" formControlName="blog"></ckeditor>
     </form>
   </div>
   <div mat-dialog-actions class="btnsGap" style="margin-top: 0.5rem">
-      <button mat-button mat-dialog-close class="btn-secondary" (click)="save()">Save</button>
-      <button mat-button mat-dialog-close class="btn-secondary">Cancel</button>
+    <button mat-button mat-dialog-close class="btn-secondary" (click)="save()">
+      Save
+    </button>
+    <button mat-button mat-dialog-close class="btn-secondary">Cancel</button>
   </div>
 </ng-template>
 
 <ng-template #sugestionDialog>
   <h1 mat-dialog-title>Add suggestion</h1>
   <div mat-dialog-content>
-    <form [formGroup]="firstFormGroup" style="display: flex; gap: 0.5rem; flex-flow: column wrap">
+    <form
+      [formGroup]="firstFormGroup"
+      style="display: flex; gap: 0.5rem; flex-flow: column wrap"
+    >
       <ckeditor [editor]="Editor" formControlName="blog"></ckeditor>
     </form>
   </div>
   <div mat-dialog-actions class="btnsGap" style="margin-top: 0.5rem">
-      <button mat-button mat-dialog-close class="btn-secondary" (click)="save()">Save</button>
-      <button mat-button mat-dialog-close class="btn-secondary">Cancel</button>
+    <button mat-button mat-dialog-close class="btn-secondary" (click)="save()">
+      Save
+    </button>
+    <button mat-button mat-dialog-close class="btn-secondary">Cancel</button>
   </div>
 </ng-template>
-
-
