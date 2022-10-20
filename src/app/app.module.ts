@@ -30,6 +30,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ApiserviceService } from './components/service/apiservice.service';
 import { HttpClientModule } from '@angular/common/http';
+import { CoreModule } from './core/core.module';
+import {MatButtonModule } from '@angular/material/button';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +67,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatTreeModule,
     MatDialogModule,
     CKEditorModule,
+    CoreModule,
+    MatButtonModule
   ],
   providers: [ApiserviceService],
   bootstrap: [AppComponent],

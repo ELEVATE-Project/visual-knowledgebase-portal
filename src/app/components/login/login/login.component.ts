@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { urlConstants } from 'src/app/core/constants/urlconstants';
+import { ApiService, CurrentUserService, ToastService } from 'src/app/core/service';
 
 @Component({
   selector: 'app-login',
@@ -11,23 +14,34 @@ export class LoginComponent implements OnInit {
   outboundClick = true;
   onloginpage = true;
   hide = true;
+  topics =[];
+  constructor(
+    private apiService : ApiService,
+    private toastService : ToastService,
+    private userService : CurrentUserService,
+    private router : Router
+  ) {}
 
-   loginForm: FormGroup | undefined;
-
-  constructor() { }
-
-  ngOnInit(): void {
-    this.loginForm = new FormGroup(
-      {
-        email: new FormControl('', [Validators.required, Validators.email]),
-        password: new FormControl('', [Validators.required, Validators.minLength(4)])
+  ngOnInit(): void {}
+  
+  onlogin(form:any){
+    const config ={
+      url : urlConstants.login,
+        payload:{
+        "email":"system@admin.com",
+        "password":"testing"
       }
-   );
   }
-  onlogin(form: NgForm){
-      console.log(form);
-    
+    this.apiService.post(config).subscribe(data =>{
+      console.log(data,"data");
+      if(data && data.result){
+        this.userService.setUser(data.result).then(() =>{
+          this.router.navigate(['/']);
+        })
+         this.toastService.showMessage(data.message,'success');
+      }
+    },error =>{
+    })
   }
-
 }
 
