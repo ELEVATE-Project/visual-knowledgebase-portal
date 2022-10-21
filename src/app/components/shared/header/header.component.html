@@ -1,7 +1,13 @@
 <mat-toolbar  class="fixed-navbar mat-elevation-z10 header">
    <mat-icon  class="icon header">school</mat-icon> <h2>{{title}}</h2> 
    <span class="spacer"></span>
-  <button  [ngClass]="authStatus ? 'btn-secondary': 'btn-primary'" (click)="authChange()">
+  <!-- <button  [ngClass]="authStatus ? 'btn-secondary': 'btn-primary'" (click)="authChange()" *ngIf="onloginpage">
+    {{auth}}
+  </button> -->
+
+  <button mat-button [ngClass]="authStatus ? 'btn-secondary': 'btn-primary'" (click)="authChange()" *ngIf=" router.url !=='/login'" [routerLink]="'/login'">
     {{auth}}
   </button>
+
+ 
 </mat-toolbar>

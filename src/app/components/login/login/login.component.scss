@@ -1,0 +1,97 @@
+.mat-card {
+    background-color: white;
+    height: 350px;
+    width: 500px;
+    justify-content: center;
+    align-content: center;
+    padding-top: 50px;
+    margin: auto;
+    margin-top: 200px;
+}
+
+.mat-card-title {
+    color: black;
+    font-variant: small-caps;
+    display: flex;
+    font-weight: bolder;
+    justify-content: center;
+    font-size: larger;
+    align-self: center;
+}
+h1{
+    font-weight: 700;
+    font-size: xx-large;
+}
+
+mat-card-content {
+    padding: 2px;
+    margin-top: 10px;
+}
+
+.mat-form-field {
+    background-color: white;
+    margin: auto;
+    width: 490px;
+    justify-content: center;
+    align-self: center;
+    font-weight: bolder;
+    font-style: normal;
+    height: 50px;
+    padding:5px;
+}
+
+button {
+    background-color: var(--secondary-600);
+    color: white;
+    padding-top: 10px;
+    font-weight: bolder;
+    width: 200px;
+    height: 40px;
+    margin: auto;
+    justify-content: center;
+    display: flex;
+    border: var(--secondary-600);
+    border-radius: 40px;
+    vertical-align: middle;
+    text-align: center;
+    margin-left: 150px;
+    margin-top: 50px;
+}
+
+.mat-card-footer {
+    justify-content: center;
+    margin: auto;
+}
+
+a {
+    float: right;
+    padding-right: 10px;
+    margin-top: 10px;
+}
+
+.mat-icon {
+    background-color: white;
+    color: black;
+    height: auto;
+    width: auto;
+    padding: 3px;
+}
+
+.mat-label {
+    color: beige;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.logincard {
+    background-color: var(--secondary-500);
+    height: 35vh;
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+
+
+}
+button.btn-primary{
+    opacity: 0;
+}

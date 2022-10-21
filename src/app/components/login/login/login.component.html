@@ -1,0 +1,61 @@
+<div class="logincard">
+
+    <mat-card class="mat-elevation-z8">
+        <mat-card-title>
+            <h1> Login </h1>
+        </mat-card-title>
+
+        <mat-card-content>
+            <div>
+                <form (ngSubmit)="onlogin(f)" #f="ngForm">
+                <mat-form-field appearance="standard">
+                    <mat-label>Username</mat-label>
+                     <input 
+                    type="text"
+                    id="username"
+                    class="form-control"
+                     matInput value ="" > 
+                    <!--ngModel
+                    name="admin" > -->
+                    
+                    <mat-icon matPrefix> mail </mat-icon>
+                    
+                </mat-form-field>
+            
+           
+            
+                <mat-form-field appearance="standard">
+                    <mat-label>Password</mat-label>
+                    <input 
+                    type="text"
+                    id="password"
+                    class="form-control"
+                     
+                    matInput [type]="hide ? 'password' : 'text'">
+                    <mat-icon matPrefix> lock </mat-icon>
+                </mat-form-field>
+            
+            
+            <a routerLink="/">Forgot Password?</a>
+        
+       
+        
+            <div>
+                <button mat-raised-button type="submit">Login</button>
+
+            </div>
+        </form></div></mat-card-content>
+        
+    </mat-card>
+</div>
+<!-- <a type="button" class="more-styles" 
+[hidden]="!inboundClick" 
+(click)="inboundClick = !inboundClick" 
+[routerLink]="['/inbound']" href="">
+</a>
+
+<a type="button" class="more-styles" 
+[hidden]="!outboundClick " 
+(click)="outboundClick = !outboundClick " 
+[routerLink]="['/outbound']" href="">
+</a> -->
