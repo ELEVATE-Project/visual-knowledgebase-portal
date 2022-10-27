@@ -1,23 +1,33 @@
-<span style="display: flex;flex-direction: row;gap: 2rem;">
-    <mat-card  class="mat-elevation-z8" >
-        <mat-icon [matMenuTriggerFor]="menu" style="align-self: flex-end; cursor: pointer;">more_vert</mat-icon>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="$event.stopPropagation();redirectToBlog()">
-          <mat-icon>edit</mat-icon>
-          <span>Edit</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>delete</mat-icon>
-          <span>Delete</span>
-        </button>
-      </mat-menu>
-  <mat-card-header>
-    <mat-icon mat-card-avatar *ngIf="cardDetail?.icon" md-46>{{ cardDetail?.icon }}</mat-icon>
-    <mat-icon mat-card-avatar *ngIf="!cardDetail?.icon" md-46>info</mat-icon>
-  </mat-card-header>
-  <mat-card-title>{{ cardDetail?.name }}</mat-card-title>
-  <mat-card-content>{{ cardDetail?.description }}</mat-card-content>
-</mat-card>
+<span style="display: flex; flex-direction: row; gap: 2rem">
+  <mat-card class="mat-elevation-z8">
+    <mat-icon
+      [matMenuTriggerFor]="menu"
+      style="align-self: flex-end; cursor: pointer"
+      >more_vert</mat-icon
+    >
+    <mat-menu #menu="matMenu">
+      <button
+        mat-menu-item
+        (click)="$event.stopPropagation(); redirectToBlog()"
+      >
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+      </button>
+      <button mat-menu-item>
+        <!-- <button mat-menu-item (click)="deleteCategory()"> -->
+        <mat-icon>delete</mat-icon>
+        <span>Delete</span>
+      </button>
+    </mat-menu>
+    <mat-card-header>
+      <mat-icon mat-card-avatar *ngIf="cardDetail?.icon" md-46>{{
+        cardDetail?.icon
+      }}</mat-icon>
+      <mat-icon mat-card-avatar *ngIf="!cardDetail?.icon" md-46>info</mat-icon>
+    </mat-card-header>
+    <mat-card-title>{{ cardDetail?.topicName }}</mat-card-title>
+    <mat-card-content>{{ cardDetail?.description }}</mat-card-content>
+  </mat-card>
 
   <ng-container *ngIf="last">
     <mat-card class="mat-elevation-z8" (click)="open()">

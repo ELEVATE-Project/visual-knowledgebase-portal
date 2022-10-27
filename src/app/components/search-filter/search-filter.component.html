@@ -3,19 +3,21 @@
   <div class="main-content">
     <div class="category">
       <h1 class="title">
-        {{ categories.length }} search results for "{{ categories[0]['name'] }}" in
-        all categories
+        {{ categories.length }} search results for "{{ categories[0]?.['name']
+
+        }}" in all categories
       </h1>
       <div class="horizontal"><hr /></div>
 
-      <div class="total-content"
+      <div
+        class="total-content"
         *ngFor="
           let category of categories
             | paginate: { itemsPerPage: tableSize, currentPage: page }
         "
       >
-        <h2 class="name">{{ category['name'] }}</h2>
-        <p class="content">{{ category['content'] }}</p>
+        <h2 class="name">{{ category["name"] }}</h2>
+        <p class="content">{{ category["content"] }}</p>
       </div>
     </div>
     <pagination-controls

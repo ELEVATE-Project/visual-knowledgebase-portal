@@ -13,7 +13,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
+import { HttpClient } from '@angular/common/http';
+import { ApiserviceService } from '../../service/apiservice.service';
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -39,7 +40,9 @@ export class CardComponent implements OnInit {
     public router: Router,
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: any
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
+    private apiService: ApiserviceService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {}
@@ -67,8 +70,14 @@ export class CardComponent implements OnInit {
       console.log($event);
     }
   }
-  save(){
-    console.log('blog',this.firstFormGroup.value.blog)
-    this.newCategory.emit({data:this.firstFormGroup.value})
+  save() {
+    console.log('blog', this.firstFormGroup.value.blog);
+    this.newCategory.emit({ data: this.firstFormGroup.value });
   }
+  // deleteCategory() {
+  //   this.apiService.deleteCategory(this.cardDetail._id).subscribe((data) => {
+  //     alert('category deleted');
+  //     console.log(data);
+  //   });
+  // }
 }
