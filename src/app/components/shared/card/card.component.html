@@ -25,7 +25,7 @@
       }}</mat-icon>
       <mat-icon mat-card-avatar *ngIf="!cardDetail?.icon" md-46>info</mat-icon>
     </mat-card-header>
-    <mat-card-title>{{ cardDetail?.topicName }}</mat-card-title>
+    <mat-card-title>{{ cardDetail?.topicName | titlecase }}</mat-card-title>
     <mat-card-content>{{ cardDetail?.description }}</mat-card-content>
   </mat-card>
 

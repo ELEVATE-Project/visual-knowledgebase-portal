@@ -4,17 +4,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
-import {  MatToolbarModule  } from '@angular/material/toolbar';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { HeaderComponent } from './components/shared/header/header.component';
-import {  MatIconModule  } from '@angular/material/icon';
-import {  MatCardModule  } from '@angular/material/card';
-import {  MatMenuModule  } from '@angular/material/menu';
-import {  MatInputModule  } from '@angular/material/input';
-import {  MatFormFieldModule  } from '@angular/material/form-field';
-import {  MatStepperModule  } from '@angular/material/stepper';
-import {  MatTreeModule  } from '@angular/material/tree';
-import {  MatDialogModule  } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatDialogModule } from '@angular/material/dialog';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { BannerComponent } from './components/shared/banner/banner.component';
 import { HomeComponent } from './components/home/home.component';
@@ -29,10 +29,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ApiserviceService } from './components/service/apiservice.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
-import {MatButtonModule } from '@angular/material/button';
-
+import { MatButtonModule } from '@angular/material/button';
+import { ApiInterceptor } from './core/service/interceptor/apiInterceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,9 +68,12 @@ import {MatButtonModule } from '@angular/material/button';
     MatDialogModule,
     CKEditorModule,
     CoreModule,
-    MatButtonModule
+    MatButtonModule,
   ],
-  providers: [ApiserviceService],
+  providers: [
+    ApiserviceService,
+    { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

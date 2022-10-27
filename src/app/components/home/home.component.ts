@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ApiserviceService } from '../service/apiservice.service';
+import { ApiService, ToastService } from 'src/app/core/service';
+import { urlConstants } from 'src/app/core/constants/urlconstants';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -8,8 +8,8 @@ import { ApiserviceService } from '../service/apiservice.service';
 })
 export class HomeComponent implements OnInit {
   constructor(
-    private http: HttpClient,
-    private apiService: ApiserviceService
+    private apiService: ApiService,
+    private toastService: ToastService
   ) {}
   categories: any;
   ngOnInit(): void {
@@ -17,20 +17,28 @@ export class HomeComponent implements OnInit {
   }
 
   newCategory($event: any) {
-    console.log('new cat', $event);
-    this.categories.push($event.data);
-    this.http
-      .post('http://34.126.99.183/knowledgebase/v1/topics/create', {
+    const newCategory = {
+      url: urlConstants.topicCreation,
+      payload: {
         topicName: $event.data.name,
         description: $event.data.description,
-      })
-      .subscribe((data) => {
-        console.log(data);
-      });
+      },
+    };
+    this.apiService.post(newCategory).subscribe((data: any) => {
+      console.log(data);
+
+      this.toastService.showMessage(data.message, 'success');
+      this.getAllCategory();
+    });
   }
   getAllCategory() {
-    this.apiService
-      .getAllCategory()
-      .subscribe((data) => (this.categories = data.result));
+    let categories = {
+      url: urlConstants.getTopics,
+    };
+    this.apiService.get(categories).subscribe((data: any) => {
+      if (data && data.result) {
+        this.categories = data.result;
+      }
+    });
   }
 }
