@@ -25,8 +25,6 @@ export class HomeComponent implements OnInit {
       },
     };
     this.apiService.post(newCategory).subscribe((data: any) => {
-      console.log(data);
-
       this.toastService.showMessage(data.message, 'success');
       this.getAllCategory();
     });
@@ -39,6 +37,15 @@ export class HomeComponent implements OnInit {
       if (data && data.result) {
         this.categories = data.result;
       }
+    });
+  }
+  deleteOneCategory($event: any) {
+    const config = {
+      url: urlConstants.deleteTopic + $event,
+    };
+    this.apiService.delete(config).subscribe((data: any) => {
+      this.toastService.showMessage(data.message, 'success');
+      this.getAllCategory();
     });
   }
 }
