@@ -7,14 +7,20 @@
 
         <mat-card-content>
             <div>
-                <form (ngSubmit)="onlogin(f)" #f="ngForm">
+                <form [formGroup]="loginForm" (ngSubmit)="onlogin()">
                 <mat-form-field appearance="standard">
                     <mat-label>Username</mat-label>
-                     <input 
+                    <input matInput type="email" formControlName="email"  required>
+                    <!-- <span class="text-help" *ngIf="email.dirty"></span> -->
+                    
+                    <!-- <span class="help-block" *ngIf="!email.valid && email.touched">Please Enter a valid Username </span> -->
+                    <!-- <mat-error *ngIf=”login.get(‘username’).errors && login.get(‘username’).errors.email”> Invalid E-Mail Pattern</mat-error> -->
+                    
+                    <!-- <input 
                     type="text"
                     id="username"
                     class="form-control"
-                     matInput value ="" > 
+                     matInput value ="" required>  -->
                     <!--ngModel
                     name="admin" > -->
                     
@@ -26,12 +32,17 @@
             
                 <mat-form-field appearance="standard">
                     <mat-label>Password</mat-label>
-                    <input 
+                    
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                    <!-- <mat-error *ngIf=”login.get(‘password’).errors”> Min length should  be 6. 
+                        </mat-error> -->
+                    
+                    <!-- <input 
                     type="text"
                     id="password"
                     class="form-control"
                      
-                    matInput [type]="hide ? 'password' : 'text'">
+                    matInput [type]="hide ? 'password' : 'text'" required> -->
                     <mat-icon matPrefix> lock </mat-icon>
                 </mat-form-field>
             
@@ -41,10 +52,11 @@
        
         
             <div>
-                <button mat-raised-button type="submit">Login</button>
+                <button mat-raised-button type="submit" [disabled]="loginForm.invalid">Login</button>
 
             </div>
-        </form></div></mat-card-content>
+        </form>
+    </div></mat-card-content>
         
     </mat-card>
 </div>
