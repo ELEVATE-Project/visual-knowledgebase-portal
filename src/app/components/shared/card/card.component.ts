@@ -13,8 +13,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { HttpClient } from '@angular/common/http';
-import { ApiserviceService } from '../../service/apiservice.service';
+
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -25,6 +24,7 @@ export class CardComponent implements OnInit {
   @Input() last: any;
   isAdmin = localStorage.getItem('auth');
   @Output() newCategory = new EventEmitter();
+  @Output() deleteOneCategory = new EventEmitter();
   @ViewChild('categoryDialog') categoryDialog: TemplateRef<any> | undefined;
   public Editor = ClassicEditor;
   public blog = '';
@@ -40,9 +40,7 @@ export class CardComponent implements OnInit {
     public router: Router,
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
-    private apiService: ApiserviceService,
-    private http: HttpClient
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   ngOnInit(): void {}
@@ -67,17 +65,12 @@ export class CardComponent implements OnInit {
     const file = $event.target.files[0];
     if (['image/jpeg', 'image/png', 'image/svg+xml'].includes(file.type)) {
       this.fileName = file.name;
-      console.log($event);
     }
   }
   save() {
-    console.log('blog', this.firstFormGroup.value.blog);
     this.newCategory.emit({ data: this.firstFormGroup.value });
   }
-  // deleteCategory() {
-  //   this.apiService.deleteCategory(this.cardDetail._id).subscribe((data) => {
-  //     alert('category deleted');
-  //     console.log(data);
-  //   });
-  // }
+  deleteCategory() {
+    this.deleteOneCategory.emit(this.cardDetail._id);
+  }
 }

@@ -28,12 +28,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { ApiserviceService } from './components/service/apiservice.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { MatButtonModule } from '@angular/material/button';
 import { ApiInterceptor } from './core/service/interceptor/apiInterceptor';
-
+import { ApiService } from './core/service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +71,7 @@ import { ApiInterceptor } from './core/service/interceptor/apiInterceptor';
     MatButtonModule,
   ],
   providers: [
-    ApiserviceService,
+    ApiService,
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

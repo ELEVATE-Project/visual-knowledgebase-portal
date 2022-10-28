@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ApiserviceService } from '../service/apiservice.service';
 import { ApiService, ToastService } from 'src/app/core/service';
 import { urlConstants } from 'src/app/core/constants/urlconstants';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,10 +8,8 @@ import { urlConstants } from 'src/app/core/constants/urlconstants';
 })
 export class HomeComponent implements OnInit {
   constructor(
-    private http: HttpClient,
-    private apiService: ApiserviceService,
-    private toastService: ToastService,
-    private apiService1: ApiService
+    private apiService: ApiService,
+    private toastService: ToastService
   ) {}
   categories: any;
   ngOnInit(): void {
@@ -22,33 +17,35 @@ export class HomeComponent implements OnInit {
   }
 
   newCategory($event: any) {
-    let createCategory = {
-      url: urlConstants.createTopic,
+    const newCategory = {
+      url: urlConstants.topicCreation,
       payload: {
         topicName: $event.data.name,
         description: $event.data.description,
       },
     };
-    this.apiService1.post(createCategory).subscribe((data) => {
+    this.apiService.post(newCategory).subscribe((data: any) => {
       this.toastService.showMessage(data.message, 'success');
       this.getAllCategory();
     });
   }
-
   getAllCategory() {
     let categories = {
       url: urlConstants.getTopics,
     };
-    this.apiService1.get(categories).subscribe((data) => {
-      console.log(data);
+    this.apiService.get(categories).subscribe((data: any) => {
       if (data && data.result) {
         this.categories = data.result;
-      } else {
-        this.toastService.showMessage(
-          data.message,
-          'no data available to display'
-        );
       }
+    });
+  }
+  deleteOneCategory($event: any) {
+    const config = {
+      url: urlConstants.deleteTopic + $event,
+    };
+    this.apiService.delete(config).subscribe((data: any) => {
+      this.toastService.showMessage(data.message, 'success');
+      this.getAllCategory();
     });
   }
 }

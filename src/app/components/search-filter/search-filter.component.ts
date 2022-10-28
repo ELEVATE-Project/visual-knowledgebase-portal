@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiserviceService } from '../service/apiservice.service';
+import { urlConstants } from 'src/app/core/constants/urlconstants';
+import { ApiService } from 'src/app/core/service';
 @Component({
   selector: 'app-search-filter',
   templateUrl: './search-filter.component.html',
@@ -11,7 +12,7 @@ export class SearchFilterComponent implements OnInit {
   count: number = 0;
   tableSize: number = 10;
   data = { name: '', content: '' };
-  constructor(private apiService: ApiserviceService) {}
+  constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.getData();
@@ -20,8 +21,13 @@ export class SearchFilterComponent implements OnInit {
   categories = [];
 
   getData() {
-    this.apiService.getData().subscribe((res: any) => {
-      this.categories = res;
+    let categories = {
+      url: urlConstants.getTopics,
+    };
+    this.apiService.get(categories).subscribe((data: any) => {
+      if (data && data.result) {
+        this.categories = data.result;
+      }
     });
   }
 }
