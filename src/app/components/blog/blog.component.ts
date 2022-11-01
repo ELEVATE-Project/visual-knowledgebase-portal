@@ -153,7 +153,7 @@ export class BlogComponent implements OnInit {
 
   async getUser(){
     this.userService.getUser().then((data) =>{
-      console.log(data)
+
       if(data){
         this.loggedIn = true;
       }
