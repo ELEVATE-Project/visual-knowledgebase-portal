@@ -14,8 +14,13 @@ export class ApiInterceptor implements HttpInterceptor {
   constructor(private userService: CurrentUserService) {}
   getToken() {
     return this.userService.getAccessToken().then((token) => {
-      let accessToken: any = JSON.parse(token);
-      return accessToken.access_token;
+      if(token){
+        let accessToken: any = JSON.parse(token);
+        return accessToken.access_token;
+      }else{
+        return null;
+      }
+      
     });
   }
   intercept(
@@ -27,7 +32,13 @@ export class ApiInterceptor implements HttpInterceptor {
 
   async handle(req: HttpRequest<any>, next: HttpHandler) {
     let authReq;
-    if (req.url != environment.baseUrl + 'user/v1/systemUsers/login') {
+    let isLoggedIn = false;
+    this.userService.getUser().then((data) =>{
+      if(data){
+        isLoggedIn = true;
+      }
+    })
+    if (req.url != environment.baseUrl + 'user/v1/systemUsers/login' && isLoggedIn ) {
       const token: any = await this.getToken();
       authReq = req.clone({
         setHeaders: {

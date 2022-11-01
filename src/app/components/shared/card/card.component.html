@@ -1,14 +1,15 @@
 <span style="display: flex; flex-direction: row; gap: 2rem">
-  <mat-card class="mat-elevation-z8">
+  <mat-card class="mat-elevation-z8" (click)="$event.stopPropagation(); redirectToBlog()">
     <mat-icon
       [matMenuTriggerFor]="menu"
+      *ngIf="loggedIn"
       style="align-self: flex-end; cursor: pointer"
       >more_vert</mat-icon
     >
     <mat-menu #menu="matMenu">
       <button
         mat-menu-item
-        (click)="$event.stopPropagation(); redirectToBlog()"
+        (click)="$event.stopPropagation(); redirectToBlog()" 
       >
         <mat-icon>edit</mat-icon>
         <span>Edit</span>
@@ -28,7 +29,7 @@
     <mat-card-content>{{ cardDetail?.description }}</mat-card-content>
   </mat-card>
 
-  <ng-container *ngIf="last">
+  <ng-container *ngIf="loggedIn && last">
     <mat-card class="mat-elevation-z8" (click)="open()">
       <mat-card-header>
         <mat-icon mat-card-avatar md-46>add_circle</mat-icon>
@@ -39,7 +40,7 @@
   </ng-container>
 </span>
 
-<ng-template #categoryDialog>
+<ng-template #categoryDialog >
   <h1 mat-dialog-title>New category</h1>
   <div mat-dialog-content>
     <form
