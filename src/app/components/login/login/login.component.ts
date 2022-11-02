@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   hide = true;
   topics =[];
   loginForm = this.formBuilder.group({
-    email:[''],
+    email:['',Validators.required],
     password:['']
   })
   
