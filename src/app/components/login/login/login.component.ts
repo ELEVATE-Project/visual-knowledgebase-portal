@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-  
   }
   
   onlogin(){
@@ -44,10 +43,7 @@ export class LoginComponent implements OnInit {
 
      }
   }
-  console.log(config);
-
-    this.apiService.post(config).subscribe(data =>{
-      console.log(data,'data');
+    this.apiService.post(config).subscribe(data =>{  
       if(data && data.result){
         this.userService.setUser(data.result).then(() =>{
           this.router.navigate(['/']);
@@ -55,7 +51,6 @@ export class LoginComponent implements OnInit {
          this.toastService.showMessage(data.message,'success');
       }
     },error =>{
-      
     })
   }
 }
