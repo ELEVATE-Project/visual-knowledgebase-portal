@@ -26,6 +26,12 @@ mat-card-title {
 mat-card-content {
   color: #676767;
   font-size: medium;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis !important ;
+  width: 160px;
+  justify-content: center;
+  text-align: center;
 }
 
 .blog {
