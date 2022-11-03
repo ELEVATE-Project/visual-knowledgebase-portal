@@ -46,14 +46,23 @@ export class ApiService {
       catchError(this.handleError([]))
     );
   }
+  
+  update(requestParam : any){
+    return this.http.patch(environment.baseUrl +  requestParam.url, requestParam.payload).pipe(
+      tap((data:any) => {
+          return data
+      }),
+      catchError(this.handleError([]))
+    )
+  }
 
   private handleError(result: any) {
     return (error: any): Observable<any> => {
-      console.log(error.error.message, 'error');
+      // console.log(error.error.message, 'error');
       if (error.status === 401) {
       } else {
-        console.log(error.error.message, 'error');
-        this.toastService.showMessage(error.error.message, 'error');
+        console.log(error, 'error');
+        // this.toastService.showMessage(error.error.message, 'error');
       }
       return of(result);
     };

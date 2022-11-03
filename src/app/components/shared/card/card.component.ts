@@ -9,6 +9,7 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+import { ApiService, CurrentUserService, ToastService } from 'src/app/core/service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -36,17 +37,32 @@ export class CardComponent implements OnInit {
     icon: '',
     blog: '',
   });
+  loggedIn: any = false;
+  selcted_deatils: any ={};
   constructor(
     public router: Router,
+    private userService: CurrentUserService,
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
-  ngOnInit(): void {}
-
+  ngOnInit(): void {
+    this.getUser();
+  }
+  async getUser(){
+    this.userService.getUser().then((data) =>{
+      if(data){
+        this.loggedIn = true;
+      }
+    })
+  
+  }
   redirectToBlog() {
-    this.router.navigate(['/blog']);
+    let selectedTopicId = this.cardDetail._id
+    let selectedTopicName = this.cardDetail.topicName
+    // selcted_deatils.push(this.cardDetail.topicName)
+    this.router.navigate(['/blog'],{queryParams:{'TopicId': selectedTopicId, 'TopicName': selectedTopicName}});
   }
 
   open(node?: any) {
