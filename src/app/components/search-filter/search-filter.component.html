@@ -1,30 +1,59 @@
 <div class="whole-content">
-  <!-- <div class="sidebar">sidebar</div> -->
-  <div class="main-content">
+  <div class="searchBar">
+    <mat-form-field appearance="outline">
+      <mat-label>Search categories, blog etc</mat-label>
+      <input
+        type="search"
+        matInput
+        placeholder="..."
+        [(ngModel)]="searchText"
+      />
+      <mat-icon matSuffix (click)="searchData()">search</mat-icon>
+    </mat-form-field>
+  </div>
+  <div class="main-content" *ngIf="categories.length">
     <div class="category">
-      <h1 class="title">
-        {{ categories.length }} search results for "{{ categories[0]?.['name']
-
-        }}" in all categories
+      <h1 class="title" *ngIf="viewNumber">
+        {{ categories.length }} search results for "{{ searchText1 }}" in all
+        categories
       </h1>
-      <div class="horizontal"><hr /></div>
-
-      <div
-        class="total-content"
-        *ngFor="
-          let category of categories
-            | paginate: { itemsPerPage: tableSize, currentPage: page }
-        "
-      >
-        <h2 class="name">{{ category["name"] }}</h2>
-        <p class="content">{{ category["content"] }}</p>
+      <div class="horizontal"></div>
+      <div *ngIf="categories.length > 10">
+        <div
+          class="total-content"
+          *ngFor="
+            let category of categories
+              | paginate: { itemsPerPage: tableSize, currentPage: page }
+          "
+        >
+          <mat-card
+            class="name"
+            (click)="redirectToBlog(category.topicName, category._id)"
+            >{{ category.topicName }}</mat-card
+          >
+        </div>
+        <pagination-controls
+          previousLabel="Prev"
+          nextLabel="Next"
+          (pageChange)="page = $event"
+        ></pagination-controls>
+      </div>
+      <div *ngIf="categories.length < 10">
+        <div class="total-content" *ngFor="let category of categories">
+          <mat-card
+            class="name"
+            (click)="redirectToBlog(category.topicName, category._id)"
+          >
+            {{ category.topicName }}
+          </mat-card>
+        </div>
       </div>
     </div>
-    <pagination-controls
-      previousLabel="Prev"
-      nextLabel="Next"
-      (pageChange)="page = $event"
-    ></pagination-controls>
-    <!-- <mat-paginator [length]="10" (page)="onChangePage($event)"> </mat-paginator> -->
+  </div>
+  <div *ngIf="!categories.length; searchText" class="noDataImage">
+    <img
+      src="https://getdiscounttravel.com/public/images/nodatafound.png"
+      alt="no data found"
+    />
   </div>
 </div>

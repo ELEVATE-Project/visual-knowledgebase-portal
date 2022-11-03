@@ -2,24 +2,18 @@
   color: #545454;
   font-size: 16px;
   font-weight: normal;
-
-  // margin-top: 10px;
-  // word-break: break-word;
-  // margin-bottom: 16px;
-  // line-height: 1.8;
-  // -webkit-font-smoothing: antialiased;
-  // -moz-osx-font-smoothing: grayscale;
-  // text-rendering: optimizelegibility;
-  // font-feature-settings: "kern";
-  // font-kerning: normal;
+}
+.main-content {
+  width: 80%;
+  padding-left: 10%;
+  cursor: pointer;
 }
 
 .whole-content {
   background-color: white;
 
-  padding-left: 20%;
   padding-top: 40px;
-  display: flex;
+  width: 100%;
 }
 
 .name {
@@ -35,5 +29,45 @@
   font-weight: bolder;
 }
 .total-content {
-  padding-bottom: 35px;
+  padding-bottom: 15px;
+}
+:host ::ng-deep {
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
+  .mat-form-field-subscript-wrapper {
+    margin: 0;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: rgb(10, 10, 10);
+  }
+}
+
+.mat-form-field {
+  width: 100%;
+  height: clamp(1rem, 2rem, 3rem);
+}
+
+input::placeholder,
+mat-icon,
+mat-label {
+  color: rgb(6, 6, 6);
+}
+.searchBar {
+  padding-bottom: 20px;
+  width: 80%;
+  padding-left: 10%;
+}
+.noDataImage {
+  width: 80%;
+  padding-left: 30%;
+  padding-top: 5%;
+}
+.mat-card:hover {
+  background-color: rgb(231, 230, 230);
+}
+.mat-card {
+  border-radius: 10px;
 }
