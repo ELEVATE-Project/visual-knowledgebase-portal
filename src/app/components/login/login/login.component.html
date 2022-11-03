@@ -7,16 +7,11 @@
 
         <mat-card-content>
             <div>
-                <form (ngSubmit)="onlogin(f)" #f="ngForm">
+                <form [formGroup]="loginForm" (ngSubmit)="onlogin()">
                 <mat-form-field appearance="standard">
                     <mat-label>Username</mat-label>
-                     <input 
-                    type="text"
-                    id="username"
-                    class="form-control"
-                     matInput value ="" > 
-                    <!--ngModel
-                    name="admin" > -->
+                    <input matInput type="email" formControlName="email">
+                    
                     
                     <mat-icon matPrefix> mail </mat-icon>
                     
@@ -26,12 +21,9 @@
             
                 <mat-form-field appearance="standard">
                     <mat-label>Password</mat-label>
-                    <input 
-                    type="text"
-                    id="password"
-                    class="form-control"
-                     
-                    matInput [type]="hide ? 'password' : 'text'">
+                    
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                   
                     <mat-icon matPrefix> lock </mat-icon>
                 </mat-form-field>
             
@@ -41,21 +33,12 @@
        
         
             <div>
-                <button mat-raised-button type="submit">Login</button>
+                <button mat-raised-button type="submit" [disabled]="loginForm.invalid">Login</button>
 
             </div>
-        </form></div></mat-card-content>
+        </form>
+    </div></mat-card-content>
         
     </mat-card>
 </div>
-<!-- <a type="button" class="more-styles" 
-[hidden]="!inboundClick" 
-(click)="inboundClick = !inboundClick" 
-[routerLink]="['/inbound']" href="">
-</a>
 
-<a type="button" class="more-styles" 
-[hidden]="!outboundClick " 
-(click)="outboundClick = !outboundClick " 
-[routerLink]="['/outbound']" href="">
-</a> -->

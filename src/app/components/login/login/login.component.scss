@@ -7,6 +7,7 @@
     padding-top: 50px;
     margin: auto;
     margin-top: 200px;
+    position: relative;
 }
 
 .mat-card-title {
@@ -27,7 +28,9 @@ mat-card-content {
     padding: 2px;
     margin-top: 10px;
 }
-
+.span{
+    color: red;
+}
 .mat-form-field {
     background-color: white;
     margin: auto;
@@ -36,14 +39,14 @@ mat-card-content {
     align-self: center;
     font-weight: bolder;
     font-style: normal;
-    height: 50px;
-    padding:5px;
+    height: 5rem;
+    padding: 2px;
 }
 
 button {
     background-color: var(--secondary-600);
     color: white;
-    padding-top: 10px;
+    padding-top: 5px;
     font-weight: bolder;
     width: 200px;
     height: 40px;
@@ -75,6 +78,7 @@ a {
     height: auto;
     width: auto;
     padding: 3px;
+    
 }
 
 .mat-label {
@@ -86,10 +90,11 @@ a {
 .logincard {
     background-color: var(--secondary-500);
     height: 35vh;
+    width: 100%;
     display: grid;
     place-items: center;
-    padding: 2rem;
-
+    //padding: 2rem;
+    justify-content: space-evenly;
 
 }
 button.btn-primary{
