@@ -42,6 +42,7 @@ export class BlogComponent implements OnInit {
   @ViewChild('categoryDialog') categoryDialog: TemplateRef<any> | undefined;
   @ViewChild('sugestionDialog') sugestionDialog: TemplateRef<any> | undefined;
   public Editor = ClassicEditor;
+  active:any;
   ckConfig = {
     toolbar: {
       items: [
@@ -213,7 +214,7 @@ export class BlogComponent implements OnInit {
   }
 
  onclickSubCategory(subcat: any) {
-
+    this.active = subcat.subCatId;
     this.clickedCategory = subcat.name
     this.clickedCategoryId = subcat.subCatId;
     this.previousCategory = subcat.topicId;

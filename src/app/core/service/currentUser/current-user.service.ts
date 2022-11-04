@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { LocalStorageService } from '../localstorage.service';
 
 @Injectable({
@@ -6,6 +7,7 @@ import { LocalStorageService } from '../localstorage.service';
 })
 export class CurrentUserService {
   token : any;
+  eventEmit = new Subject()
   constructor(private storage: LocalStorageService) {
   }
 
@@ -13,6 +15,7 @@ export class CurrentUserService {
     return new Promise((resolve, reject) => {
       this.storage.setLocalStorage('userDetails', JSON.stringify(data)).then(success => {
         this.token = data;
+        this.eventEmit.next(data);
         resolve(data);
       }).catch(error => {
         reject(error)
