@@ -6,7 +6,6 @@
     display: flex;
     flex: row wrap;
     gap: 3%;
-    // justify-content: center;
     padding: 1rem 0;
 }
 
@@ -65,18 +64,11 @@ form label{
     margin-bottom: 0;
   }
   
-  /*
-   * This padding sets alignment of the nested nodes.
-   */
+ 
   .example-tree .mat-nested-tree-node div[role=group] {
     padding-left: 40px;
   }
   
-  /*
-   * Padding for leaf nodes.
-   * Leaf nodes need to have padding so as to align with other non-leaf nodes
-   * under the same parent.
-   */
   .example-tree div[role=group] > .mat-tree-node {
     padding-left: 40px;
   }

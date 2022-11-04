@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators, NgForm, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { urlConstants } from 'src/app/core/constants/urlconstants';
 import { ApiService, CurrentUserService, ToastService } from 'src/app/core/service';
@@ -10,30 +10,40 @@ import { ApiService, CurrentUserService, ToastService } from 'src/app/core/servi
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+ 
+//  public loginForm: FormGroup;
   inboundClick = true;
   outboundClick = true;
   onloginpage = true;
   hide = true;
   topics =[];
+  loginForm = this.formBuilder.group({
+    email:['',Validators.required],
+    password:['',Validators.required]
+  })
+  
+  
   constructor(
     private apiService : ApiService,
     private toastService : ToastService,
     private userService : CurrentUserService,
-    private router : Router
+    private router : Router,
+    private formBuilder: FormBuilder
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
   
-  onlogin(form:any){
+  onlogin(){
     const config ={
       url : urlConstants.login,
-        payload:{
-        "email":"system@admin.com",
-        "password":"testing"
-      }
+       payload:{
+       "email":this.loginForm.value.email,
+       "password":this.loginForm.value.password
+
+     }
   }
-    this.apiService.post(config).subscribe(data =>{
-      // console.log(data,"data");
+    this.apiService.post(config).subscribe(data =>{  
       if(data && data.result){
         this.userService.setUser(data.result).then(() =>{
           this.router.navigate(['/']);
