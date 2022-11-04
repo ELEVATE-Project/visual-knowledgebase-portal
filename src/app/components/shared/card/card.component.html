@@ -60,24 +60,7 @@
         <mat-label>Description</mat-label>
         <textarea matInput required formControlName="description"></textarea>
       </mat-form-field>
-      <span style="display: flex; gap: 1rem; flex-flow: row wrap">
-        <label for="image_uploads">{{ fileName }} </label>
-        <input
-          type="file"
-          id="image_uploads"
-          name="image_uploads"
-          accept=".jpg, .jpeg, .png, .svg"
-          hidden
-          (change)="iconChoosen($event)"
-        />
-        <button
-          mat-button
-          class="btn-primary uploadIcon"
-          style="height: 60%; align-self: center"
-        >
-          Upload
-        </button>
-      </span>
+      
     </form>
   </div>
   <div mat-dialog-actions class="btnsGap" style="margin-top: 0.5rem">

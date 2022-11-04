@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { urlConstants } from 'src/app/core/constants/urlconstants';
 import { ApiService } from 'src/app/core/service';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-search-filter',
@@ -19,10 +19,14 @@ export class SearchFilterComponent implements OnInit {
   categories: any = [];
   viewNumber = false;
 
-  constructor(private apiService: ApiService, public router: Router) {}
+  constructor(private apiService: ApiService, public router: Router,private route:ActivatedRoute,) {}
 
   ngOnInit(): void {
-    this.getData();
+    this.route.queryParams.subscribe((params:any) =>{    
+      this.searchText = params.searchdata
+      
+    })
+    this.searchData()
   }
   redirectToBlog(selectedTopicName: any, selectedTopicId: any) {
     this.router.navigate(['/blog'], {

@@ -7,10 +7,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
+  searchText:any;
   constructor(public router: Router) {}
-
+  
   ngOnInit(): void {}
-  redirectToSearch() {
-    this.router.navigate(['/search']);
+  redirectToSearch(data:any) {
+    this.router.navigate(['/search'], {
+      queryParams: {searchdata: data},
+    });
+  
   }
+
+
 }

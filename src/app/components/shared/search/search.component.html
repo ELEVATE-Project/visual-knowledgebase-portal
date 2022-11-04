@@ -1,5 +1,11 @@
 <mat-form-field appearance="outline">
   <mat-label>Search categories, blog etc</mat-label>
-  <input type="search" matInput placeholder="..." />
-  <mat-icon matSuffix (click)="redirectToSearch()">search</mat-icon>
+  <input
+        type="search"
+        matInput
+        placeholder="..."
+        [(ngModel)]="searchText"
+      />
+  <!-- <input type="search" matInput placeholder="..." /> -->
+  <mat-icon matSuffix (click)="redirectToSearch(searchText)">search</mat-icon>
 </mat-form-field>
