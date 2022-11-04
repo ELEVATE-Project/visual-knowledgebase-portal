@@ -37,6 +37,7 @@ export class CurrentUserService {
   deleteUser(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.storage.deleteAllStorage().then(data => {
+        this.eventEmit.next(data);
         resolve(data);
       }).catch(error => {
         reject()

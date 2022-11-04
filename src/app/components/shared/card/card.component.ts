@@ -39,13 +39,19 @@ export class CardComponent implements OnInit {
   });
   loggedIn: any = false;
   selcted_deatils: any ={};
+  subscriptions:any;
   constructor(
     public router: Router,
     private userService: CurrentUserService,
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
+    private currentUserService : CurrentUserService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) {
+    this.subscriptions = currentUserService.eventEmit.subscribe(data =>{
+      this.getUser();
+    })
+}
 
   ngOnInit(): void {
     this.getUser();
