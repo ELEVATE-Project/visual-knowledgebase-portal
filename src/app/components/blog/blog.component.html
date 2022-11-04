@@ -1,7 +1,7 @@
 
 <mat-card class="main">
   <h1 style="font-weight: 500">
-    {{topicName | titlecase}} / {{clickedCategory}}
+    <mat-icon class="arrow_back_btn" (click)="back()">arrow_back  </mat-icon>{{topicName | titlecase}} / {{clickedCategory}}
 
   </h1>
   <hr />

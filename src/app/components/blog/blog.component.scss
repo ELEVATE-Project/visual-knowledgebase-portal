@@ -63,10 +63,9 @@ form label{
     margin-top: 0;
     margin-bottom: 0;
   }
-  
  
   .example-tree .mat-nested-tree-node div[role=group] {
-    padding-left: 40px;
+    padding-left: 15px;
   }
   
   .example-tree div[role=group] > .mat-tree-node {
@@ -81,13 +80,16 @@ form label{
 h3{
     margin: 0%;
 }
-
 .treeNode{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    cursor: pointer;
 }
 
-
-
+.arrow_back_btn{
+    cursor: pointer;
+    vertical-align: middle;
+    margin-right: 15px;
+}
