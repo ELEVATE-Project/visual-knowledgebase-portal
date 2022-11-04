@@ -33,11 +33,12 @@ export class ApiInterceptor implements HttpInterceptor {
   async handle(req: HttpRequest<any>, next: HttpHandler) {
     let authReq;
     let isLoggedIn = false;
-    this.userService.getUser().then((data) =>{
+    await this.userService.getUser().then((data) =>{
       if(data){
         isLoggedIn = true;
       }
     })
+   
     if (req.url != environment.baseUrl + 'user/v1/systemUsers/login' && isLoggedIn ) {
       const token: any = await this.getToken();
       authReq = req.clone({

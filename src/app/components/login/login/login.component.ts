@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       }
   }
     this.apiService.post(config).subscribe(data =>{
-      console.log(data,"data");
+      // console.log(data,"data");
       if(data && data.result){
         this.userService.setUser(data.result).then(() =>{
           this.router.navigate(['/']);

@@ -21,19 +21,16 @@ import { urlConstants } from 'src/app/core/constants/urlconstants';
 import { ApiService, CurrentUserService, ToastService } from 'src/app/core/service';
 import * as _ from 'lodash-es';
 
-/**
- * Category data with nested structure.
- * Each node has a name and an optional list of children.
- */
-interface CategoryNode {
-  name?: string;
-  description?: string;
-  icon?: string;
-  subCatId?: string;
-  blog?: string;
-  children?: CategoryNode[];
-  parent?: string;
-}
+
+// interface CategoryNode {
+//   name?: string;
+//   description?: string;
+//   icon?: string;
+//   subCatId?: string;
+//   blog?: string;
+//   children?: CategoryNode[];
+//   parent?: string;
+// }
 
 // const TREE_DATA: CategoryNode[] = [
 //   {
@@ -92,9 +89,9 @@ export class BlogComponent implements OnInit {
   sub_category: any = {};
 
   subCategoryIds: any;
-
+  previousCategory: string ="";
   loadash = _;
-  category: CategoryNode[] = [];
+  category: any= [];
   // topicId: string = "634d2d9497e47b1b7127e510"
   topicId: string = ""
   topicName: string = ""
@@ -103,6 +100,7 @@ export class BlogComponent implements OnInit {
   loggedIn: any = false;
   public blog = '';
   dialogRef: any;
+ 
   fileName: string = 'Choose images to upload icon (svg, jpg, png)';
   firstFormGroup = this._formBuilder.group({
     name: ['', Validators.required],
@@ -111,26 +109,15 @@ export class BlogComponent implements OnInit {
     blog: '',
   });
 
-  treeControl = new NestedTreeControl<CategoryNode>((node) => node.children);
-  dataSource = new MatTreeNestedDataSource<CategoryNode>();
-
-  // get subCategories(): FormArray {
-  //   return this.firstFormGroup.get('subCategories') as FormArray;
-  // }
-
-  // getSubCategories() {
-  //   // const subCategory = this._formBuilder.group({
-  //   //   name: new FormControl(''),
-  //   //   blog: new FormControl('')
-  //   // });
-  //   this.subCategories.push(this._formBuilder.control(''));
-  // }
+  treeControl = new NestedTreeControl<any>((node) => node.children);
+  dataSource = new MatTreeNestedDataSource<any>();
 
   constructor(
     private _formBuilder: FormBuilder,
     private apiService: ApiService,
     private userService: CurrentUserService,
     private route:ActivatedRoute,
+    private toastService:ToastService,
     private ref: ChangeDetectorRef,
     public dialog: MatDialog,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any
@@ -143,13 +130,13 @@ export class BlogComponent implements OnInit {
       this.topicId = params.TopicId
       this.topicName = params.TopicName
     })
+    this.previousCategory =  this.topicId;
     this.clickedCategory = this.topicName;
     this.clickedCategoryId = this.topicId;
     this.getUser()
     this.open()
     this.getSubCategory()
   }
-
 
   async getUser(){
     this.userService.getUser().then((data) =>{
@@ -173,28 +160,6 @@ export class BlogComponent implements OnInit {
 
   }
 
-  // getCategory() {
-  //   const config = {
-  //     url: urlConstants.readsubTopic
-  //   }
-  //   this.apiService.post(config).subscribe(data => {
-
-  //     this.data.result.forEach((ele: any) => {
-  //       if (ele._id == this.topicId) {
-  //         console.log(ele._id)
-  //         this.dataSource.data[0].name = ele.topicName;
-  //         console.log(this.dataSource.data[0].name)
-  //         this.dataSource.data[0].description = ele.description;
-  //         this.dataSource.data[0]._id = ele._id
-  //       }
-
-  //     });
-  //   })
-  //   this.getSubCategory();
-
-  // }
-
-
   getSubCategory() {
 
     const config = {
@@ -212,14 +177,11 @@ export class BlogComponent implements OnInit {
             const config1 = {
               url: urlConstants.readsuggestion + ele.suggestionId
             }
-  
-  
             this.apiService.get(config1).subscribe(data => {
               this.dataSource.data[0].blog = data.result[0].blog;
             }, error => {
             })
           }
-          
           this.ref.detectChanges();
         }
       });
@@ -227,19 +189,17 @@ export class BlogComponent implements OnInit {
     })
 
 
-
-    
     this.apiService.post(config).subscribe(data => {
       this.category[0] = {}
       this.category[0]["name"] = this.topicName
-      // this.category[0]["blog"] = `<h2><strong>Create a knowledgebase account</strong></h2><p>Who can use this feature</p><p>Anyone can create a free knowledgebase account. To collaborate with others you will need to create a <a href="https://help.knowledgebase.com/hc/en-us/articles/360040328273-Choose-a-knowledgebase-Plan">team</a>.</p><p>Check out our <a href="https://help.knowledgebase.com/hc/en-us/articles/360039827194-What-platforms-and-devices-does-knowledgebase-support">What platforms and devices does knowledgebase support</a> article for supported browsers and platforms.</p><p>If someone has invited you to a file, project, or team you can create a knowledgebase account to start collaborating.</p><p><strong>Note:</strong> If you are joining a knowledgebase Organization, you can also sign up for knowledgebase using your company email (SAML SSO). <a href="https://help.knowledgebase.com/hc/en-us/articles/360041064554"><strong>Log in to knowledgebase →</strong></a></p><h2><strong>Email address</strong></h2><p>Sign up for knowledgebase using your <strong>email address </strong>and a <strong>unique password</strong>.</p><ol><li>Head to <a href="http://knowledgebase.com/">knowledgebase.com</a> and click <strong>Sign up</strong> in the top right corner.</li><li>Enter your <strong>Email address</strong> in the field provided.</li><li>Enter a unique <strong>Password</strong> in the field underneath.</li><li>Click the <strong>Sign up</strong> button to complete the process. You will be logged into your new knowledgebase account immediately.</li><li>knowledgebase will send you an email to verify your account. Open the email, and click the verification button to complete the process and log into your new knowledgebase account.</li></ol><h2><strong>Google account</strong></h2><p>If you have a Google account, including a Google business account, you can sign up for a knowledgebase account using your Google account details.</p><ol><li>Head to <a href="http://knowledgebase.com/">knowledgebase.com</a> and click <strong>Sign up</strong> in the top right corner. Or, follow this link directly: <a href="https://www.knowledgebase.com/signup">https://www.knowledgebase.com/signup</a></li><li>Select <strong>Continue with Google</strong> at the top of the window.</li><li>If you're already logged in to Google, you'll be prompted to confirm your details.</li><li>Otherwise, enter your <strong>Google email</strong> or <strong>Phone</strong> in the field provided and click <strong>Next</strong>.</li><li>You will then be able to <strong>Enter your password</strong>.</li><li>Click <strong>Next</strong> to complete the process. A knowledgebase account will then be created under your name and email address.</li></ol><p><strong>Note</strong>: When you sign up with your Google account, you can't make changes to your email address or password in knowledgebase. If you want to use knowledgebase with another email, you will need to disconnect Google from your account. <a href="https://help.knowledgebase.com/hc/en-us/articles/360039820114#Google_SSO"><strong>Switch from Google SSO to email and password →</strong></a></p><h3>What next?</h3><p>Once the sign up process is complete, knowledgebase will take you to the file browser. This is where you can access your unlimited <strong>Drafts</strong> folder, any teams you're a member of, and the knowledgebase Community. <a href="https://help.knowledgebase.com/hc/en-us/articles/360041543473"><strong>Explore knowledgebase →</strong></a></p><p>If you'd like to step it up a notch and collaborate with other designers on projects, then you can <a href="https://help.knowledgebase.com/hc/en-us/articles/360039964073">create teams</a> in knowledgebase. <a href="https://help.knowledgebase.com/hc/en-us/articles/360040328273"><strong>Compare teams and plans in knowledgebase →</strong></a></p><ul><li>On the free <a href="https://help.knowledgebase.com/hc/en-us/articles/360040328273-Compare-teams-and-plans#Starter_plan">Starter</a> plan you can collaborate on <strong>3 files</strong> with <strong>3 pages</strong> each.</li><li>Sign up for a paid <a href="https://help.knowledgebase.com/hc/en-us/articles/360040328273-Compare-teams-and-plans#Professional_plan">Professional</a> plan to collaborate across multiple files and projects.</li><li>Sign up for the <a href="https://help.knowledgebase.com/hc/en-us/articles/360040328273-Compare-teams-and-plans#Organization_plan">Organization</a> plan to share resources and work with colleagues&nbsp;across <strong>multiple teams</strong>.</li></ul>`
       let childrenArray: any = []
+      let subCategorychildrenArray: any =[]
       data.result.forEach((ele: any) => {
-
-        var sub_category = { "name": ele.topicName, "description": ele.description, "blog": ele.suggestion, "subCatId": ele._id }
-        childrenArray.push(sub_category)
-
+        let sub_category = { "name": ele.topicName, "description": ele.description, "blog": ele.suggestion, "subCatId": ele._id, "children":subCategorychildrenArray , "topicId":ele.topicId}
+       subCategorychildrenArray =[];
+        childrenArray.push(sub_category)    
       });
+    
       this.category[0]["children"] = childrenArray
       this.subCategoryIds = this.category[0].children
       this.dataSource.data = this.category
@@ -247,20 +207,18 @@ export class BlogComponent implements OnInit {
 
     })
    
-
   }
 
-
-  hasChild = (_: number, node: CategoryNode) =>
+  hasChild = (_: number, node: any) =>
     !!node.children && node.children.length > 0;
 
-  iconChoosen($event: any) {
-    const file = $event.target.files[0];
-    if (['image/jpeg', 'image/png', 'image/svg+xml'].includes(file.type)) {
-      this.fileName = file.name;
-      console.log($event);
-    }
-  }
+  // iconChoosen($event: any) {
+  //   const file = $event.target.files[0];
+  //   if (['image/jpeg', 'image/png', 'image/svg+xml'].includes(file.type)) {
+  //     this.fileName = file.name;
+  //     console.log($event);
+  //   }
+  // }
 
   openSuggestion(edit?: any) {
     if (!edit) {
@@ -284,18 +242,12 @@ export class BlogComponent implements OnInit {
     this.openSuggestion(true);
   }
 
-  onclickSubCategory(subcat: any) {
-    //  if (node !== undefined) {
-    //   const parentNode = this.getLevel(this.dataSource.data, node);
-    //   console.log('Parent node', parentNode);
-    //   console.log('node', node);
-    //   this.dataSource.data = [node];
-    // }
-    this.clickedCategory = subcat
+ onclickSubCategory(subcat: any) {
 
-
-    if (subcat == this.topicName) {
-      this.clickedCategoryId = this.topicId;
+    this.clickedCategory = subcat.name
+    this.clickedCategoryId = subcat.subCatId;
+    this.previousCategory = subcat.topicId;
+    if(this.clickedCategory == this.topicName){
       const configRead = {
         url: urlConstants.getTopics
       }
@@ -312,47 +264,61 @@ export class BlogComponent implements OnInit {
               }, error => {
               })
             }
-            
   
           }
         });
-        this.ref.detectChanges();
       })
+  
+    }else{
 
-    } else {
+      this.dataSource.data[0].blog = subcat.blog.length && subcat.blog[0].blog;
+          }
 
-      this.subCategoryIds.forEach((ele: any) => {
-        if (subcat == ele.name) {
-          this.clickedCategoryId = ele.subCatId
-          this.dataSource.data[0].blog = ele.blog.length && ele.blog[0].blog;
-        }
-      });
+
+
+    if(this.clickedCategory != this.topicName){
+ let config2 = {
+          url: urlConstants.readsubTopic + this.clickedCategoryId
+          
+       }
+      
+        this.apiService.post(config2).subscribe(data => {
+          if(data.result.length){
+            subcat.children =[]
+            data.result.forEach((ele: any) =>{
+        
+              var sub_categoryChildrenArray = {"name":ele.topicName, "description": ele.description, "blog": ele.suggestion, "subCatId": ele._id, "topicId":ele.topicId}     
+              subcat.children.push(sub_categoryChildrenArray)   
+              // let childrenData =  JSON.parse(JSON.stringify(this.dataSource.data));
+              let childrenData =  this.dataSource.data;
+          
+                this.dataSource.data = [];
+                this.dataSource.data = childrenData;
+              
+              console.log(childrenData, "childrenData")
+            })
+            this.ref.detectChanges();     
+          }  
+          
+        })
     }
+    
+      
     this.ref.detectChanges();
   }
 
 
 
-  saveCategory(node?: CategoryNode) {
-    // if (node !== undefined) {
-    // const parentNode = this.getLevel(this.dataSource.data, node);
-    // console.log('Parent node', parentNode);
-    // console.log('node', node);
-    // this.dataSource.data = [node];
-    // }
-
+  saveCategory(node?: any) {
     const config = {
-      url: urlConstants.postsubTopic + this.topicId,
+      url: urlConstants.postsubTopic + this.clickedCategoryId,
       payload: {
         "topicName": this.firstFormGroup.value.name,
         "description": this.firstFormGroup.value.description,
-        "topicId": this.topicId
+        "topicId": this.clickedCategoryId
       }
-
+      
     }
-    // const data: CategoryNode = this.firstFormGroup.value as any;
-    // console.log(this.dataSource.data,'treeee')
-    // this.dataSource.data = [...this.dataSource.data, data];
     this.apiService.post(config).subscribe(data => {
 
       const config1 = {
@@ -361,16 +327,16 @@ export class BlogComponent implements OnInit {
         "topicId": data.result[0].topicId,
       }
       this.dataSource.data[0].children?.push(config1)
-      
+      this.toastService.showMessage(data.message,'success');
+      this.getSubCategory()
     }, error => {
     })
-    this.getSubCategory()
+   
     this.ref.detectChanges();
   }
 
 
   saveSuggestion(data: any) {
-    console.log(this.firstFormGroup.value.blog)
     const config = {
       url: urlConstants.postsuggestion,
       payload: {
@@ -381,6 +347,7 @@ export class BlogComponent implements OnInit {
     this.apiService.post(config).subscribe(data => {
       let config1
       let suggestionBlog = data.result[0].blog;
+
       if (this.clickedCategoryId == this.topicId) {
        
         config1 = {
@@ -396,9 +363,9 @@ export class BlogComponent implements OnInit {
         config1 = {
           url: urlConstants.postsubTopic + this.clickedCategoryId,
           payload: {
-            "topicId": this.topicId,
+            "topicId": this.previousCategory,
             "topicName": this.clickedCategory,
-            "suggestionId": data.result[0]._id,
+            "suggestionId": data.result[0]._id
           }
 
         }
@@ -406,8 +373,10 @@ export class BlogComponent implements OnInit {
 
       this.apiService.update(config1).subscribe(data => {
         if (data.responseCode == "OK") {
-          this.dataSource.data[0].blog = suggestionBlog
+          // this.dataSource.data[0].blog = suggestionBlog
+          this.getSubCategory()
         }
+        this.toastService.showMessage(data.message,'success');
         
       }, error => {
       })
@@ -416,21 +385,8 @@ export class BlogComponent implements OnInit {
     }, error => {
     })
 
-    this.getSubCategory()
+    
 
   }
-  // topicName: this.firstFormGroup.value.name,
-  // description: this.firstFormGroup.value.description,
-
-  // getLevel(data: any, node: any):any {
-  //   let path = data.find((branch: CategoryNode) => {
-  //     return this.treeControl
-  //       .getDescendants(branch)
-  //       .some((n) => n.name === node?.name);
-  //   });
-  //   console.log('path',path)
-  //   return path ? this.getLevel(path.children, node) + 1 : 0 ;
-  // }
-
 
 }

@@ -1,186 +1,20 @@
-<!-- <div class="d-flex flex-jc-center flex-ai-center blog">
-  <mat-card>
-    <h1 style="font-weight: 500;">New category</h1>
-    <hr>
-    <mat-stepper orientation="vertical" [linear]="true" #stepper>
-      <mat-step [stepControl]="firstFormGroup">
-        <form [formGroup]="firstFormGroup" class="matStepDirection">
-          <ng-template matStepLabel
-            >Provide a category details here</ng-template
-          >
-          <mat-form-field appearance="outline">
-            <mat-label>Category</mat-label>
-            <input
-              matInput
-              placeholder="Ex. Account, Engineering etc"
-              formControlName="categoryName"
-              required
-            />
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Description</mat-label>
-            <textarea
-              matInput
-              required
-              formControlName="categoryDescription"
-            ></textarea>
-          </mat-form-field>
-          <span style="display: flex; gap: 1rem; flex-flow: row wrap">
-            <label for="image_uploads">{{ fileName }} </label>
-            <input
-              type="file"
-              id="image_uploads"
-              name="image_uploads"
-              accept=".jpg, .jpeg, .png, .svg"
-              hidden
-              (change)="iconChoosen($event)"
-            />
-            <button
-              mat-button
-              matStepperNext
-              class="btn-primary uploadIcon"
-              style="height: 60%; align-self: center"
-            >
-              Upload
-            </button>
-          </span>
-          <ng-conatiner  formArrayName="subCategories" *ngFor="let sub of subCategories.controls;let i=index">
-            <mat-card class="mat-elevation-z8" style="margin-top: 1rem;margin-bottom: 1rem;">
-              <mat-form-field style="width: 100%;" appearance="outline">
-                <mat-label>Sub-category</mat-label>
-                <input
-                  matInput
-                  placeholder="Ex. Login in account"
-                  [formControlName]="i"
-                />
-              </mat-form-field>
-              <ckeditor [editor]="Editor" [(ngModel)]="blog" [ngModelOptions]="{standalone:true}"></ckeditor>
-            </mat-card>
- 
-          </ng-conatiner>
-          <div class="btnsGap" style="margin-top: 0.5rem">
-            <button mat-button matStepperNext class="btn-secondary">
-              Next
-            </button>
-            <button mat-button matStepperNext class="btn-secondary" (click)="getSubCategories()">
-              Add sub-category
-            </button>
-          </div>
-        </form>
-      </mat-step>
-      <mat-step [stepControl]="firstFormGroup" optional="true">
-        <form [formGroup]="firstFormGroup" class="matStepDirection">
-          <ng-template matStepLabel
-            >Provide a sub-category for
-            {{ firstFormGroup.value.categoryName }}</ng-template
-          >
-          <mat-form-field appearance="outline">
-            <mat-label>Sub-category</mat-label>
-            <input
-              matInput
-              placeholder="Ex. Login in account"
-              formControlName="categoryName"
-            />
-          </mat-form-field>
-          <div class="btnsGap">
-            <button mat-button matStepperPrevious class="btn-secondary">
-              Back
-            </button>
-            <button mat-button matStepperNext class="btn-secondary">
-              Next
-            </button>
-          </div>
-        </form>
-      </mat-step>
-      <mat-step [stepControl]="firstFormGroup">
-        <ng-template matStepLabel>Provide a solution here</ng-template>
-        <div class="btnsGap btnMargin">
-          <button mat-button matStepperPrevious class="btn-secondary">
-            Back
-          </button>
-          <button mat-button matStepperNext class="btn-secondary">Next</button>
-        </div>
-      </mat-step>
-      <mat-step>
-        <ng-template matStepLabel>Confirm</ng-template>
-        <p>Please confirm to submit</p>
-        <div class="btnsGap">
-          <button mat-button matStepperPrevious class="btn-secondary">
-            Back
-          </button>
-          <button mat-button (click)="stepper.reset()" class="btn-secondary">
-            Reset
-          </button>
-          <button mat-button class="btn-primary">Submit</button>
-        </div>
-      </mat-step>
-    </mat-stepper>
-  </mat-card>
-</div> -->
 
-{{ blog }}
-<!-- temporary template ignore
-<ng-template let-category="category" #subCategory>
-  <mat-stepper orientation="vertical" [linear]="true" #stepper>
-  <mat-step [stepControl]="firstFormGroup" optional="true">
-    <form [formGroup]="firstFormGroup" class="matStepDirection">
-      <ng-template matStepLabel
-        >Provide a sub-category for
-        {{ category.categoryName }}</ng-template
-      >
-      <mat-form-field appearance="outline">
-        <mat-label>Sub-category</mat-label>
-        <input
-          matInput
-          placeholder="Ex. Login in account"
-        />
-      </mat-form-field>
-      <div class="btnsGap">
-        <button mat-button matStepperPrevious class="btn-secondary">
-          Back
-        </button>
-        <button mat-button matStepperNext class="btn-secondary">
-          Next
-        </button>
-      </div>
-    </form>
-  </mat-step>
-</mat-stepper>
-</ng-template>
- -->
-
-<!-- 
-  using mat-tree
- -->
-<!-- 
- *ngIf="tree_data.length" -->
 <mat-card class="main">
   <h1 style="font-weight: 500">
     {{topicName | titlecase}} / {{clickedCategory}}
 
   </h1>
   <hr />
-  <!-- *ngIf="loadash.size(category) >0" -->
 
   <div class="blog">
 
     <mat-card style="min-width: 20%;max-width: 100%;">
-      <ng-container *ngIf="loadash.size(category[0]) >0">
+
         <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
-          <!-- This is the tree node template for leaf nodes -->
-          <!-- There is inline padding applied to this node using styles.
-  This padding value depends on the mat-icon-button width. -->
+  
           <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle class="treeNode">
-            <h3 (click)="onclickSubCategory(node.name)">{{ node.name | titlecase}}</h3>
-            <!-- <button mat-button class="btn-secondary" style="margin: 0 0.4rem;" (click)="open(node)">
-        +
-      </button> -->
+            <h3 (click)="onclickSubCategory(node)">{{ node.name | titlecase}}</h3>
           </mat-tree-node>
-          <!-- This is the tree node template for expandable nodes -->
-          <mat-form-field appearance="outline">
-            <mat-label>Description</mat-label>
-            <textarea matInput required></textarea>
-          </mat-form-field>
 
           <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
             <div class="mat-tree-node">
@@ -191,23 +25,15 @@
                   }}
                 </mat-icon>
               </button>
-              <h3 (click)="onclickSubCategory(node.name)">{{ node.name | titlecase}} </h3>
+              <h3 (click)="onclickSubCategory(node)">{{ node.name | titlecase}} </h3>
             </div>
-            <!-- There is inline padding applied to this div using styles.
-        This padding value depends on the mat-icon-button width.  -->
             <div [class.example-tree-invisible]="!treeControl.isExpanded(node)" role="group">
               <ng-container matTreeNodeOutlet></ng-container>
             </div>
-            <!-- <button mat-button class="btn-secondary" style="margin:0 0.4rem;" (click)="open(node)">
-        +
-      </button> -->
+
           </mat-nested-tree-node>
 
-
-
         </mat-tree>
-      </ng-container>
-
       <div
         style="display: flex;flex-direction: column;flex-wrap: wrap;gap: 0.5rem; justify-content: centera;align-items: center;" *ngIf="loggedIn">
         <button *ngIf="loadash.size(category[0]) >0 && !category[0].blog " mat-button class="btn-secondary"
@@ -220,14 +46,25 @@
       </div>
 
     </mat-card>
-    <!-- *ngIf="loadash.size(category[0]) >0 && category[0].blog" -->
+
     <mat-card  class="article">
       <mat-icon style="display: flex;align-self: flex-end;float: right;" *ngIf="loggedIn && loadash.size(category[0]) >0 && category[0].blog " (click)="editBlog()">edit</mat-icon>
-      <div [innerHTML]="dataSource.data[0].blog" *ngIf="loadash.size(category[0]) >0 && category[0].blog"></div>
-      <div *ngIf="loadash.size(category[0]) >0 && !category[0].blog" style="align-items: center; justify-content: center; ">
-        <img src="https://img.freepik.com/free-vector/no-data-concept-illustration_114360-536.jpg?w=2000
-        " alt="" width="100%" height="70%">
+      <div *ngIf="dataSource.data">
+        <div [innerHTML]="dataSource.data[0].blog" *ngIf="loadash.size(category[0]) >0 && category[0].blog"></div>
+
       </div>
+
+      <div *ngIf="loadash.size(category[0]) >0 && !category[0].blog" style="display:flex; flex-direction: column; align-items: center; justify-content: center; ">
+       
+    <img
+      src=" https://cdn.iconscout.com/icon/premium/png-128-thumb/files-not-found-4022828-3325917.png"
+      alt="no data found" width="50%"
+    />
+     <h3>No Suggestion Found</h3>
+
+   
+      </div>
+  
 
 
     </mat-card>
@@ -235,25 +72,18 @@
 </mat-card>
 
 <ng-template #categoryDialog>
-  <h1 mat-dialog-title>Subcategory of {{dataSource.data[0].name}}</h1>
+  <h1 mat-dialog-title>Subcategory to {{clickedCategory}}</h1>
   <div mat-dialog-content>
     <form [formGroup]="firstFormGroup" style="display: flex; gap: 0.5rem; flex-flow: column wrap">
       <mat-form-field appearance="outline">
-        <mat-label>Subcategory</mat-label>
+        <mat-label>Subcategory </mat-label>
         <input matInput placeholder="Ex. Profile, Login etc" formControlName="name" required />
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Description</mat-label>
         <textarea matInput required formControlName="description"></textarea>
       </mat-form-field>
-      <!-- <span style="display: flex; gap: 1rem; flex-flow: row wrap">
-        <label for="image_uploads">{{ fileName }} </label>
-        <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png, .svg" hidden
-          (change)="iconChoosen($event)" />
-        <button mat-button class="btn-primary uploadIcon" style="height: 60%; align-self: center">
-          Upload
-        </button>
-      </span> -->
+    
     </form>
   </div>
   <div mat-dialog-actions class="btnsGap" style="margin-top: 0.5rem">
@@ -265,7 +95,7 @@
 </ng-template>
 
 <ng-template #sugestionDialog>
-  <h1 mat-dialog-title>Add suggestion</h1>
+  <h1 mat-dialog-title>Suggestion to {{clickedCategory}}</h1>
   <div mat-dialog-content>
     <form [formGroup]="firstFormGroup" style="display: flex; gap: 0.5rem; flex-flow: column wrap">
       <ckeditor [editor]="Editor" formControlName="blog" class="customEditor"></ckeditor>
