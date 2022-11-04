@@ -1,11 +1,6 @@
 <span style="display: flex; flex-direction: row; gap: 2rem">
-  <mat-card class="mat-elevation-z8" (click)="redirectToBlog()">
-    <mat-icon
-      [matMenuTriggerFor]="menu"
-      *ngIf="loggedIn"
-      style="align-self: flex-end; cursor: pointer"
-      >more_vert</mat-icon
-    >
+  <mat-card class="mat-elevation-z8">
+   
     <mat-menu #menu="matMenu">
       <button
         mat-menu-item
@@ -19,14 +14,23 @@
         <span>Delete</span>
       </button>
     </mat-menu>
+  
+
+    <mat-icon
+   
+    [matMenuTriggerFor]="menu"
+    *ngIf="loggedIn"
+    style="align-self: flex-end; cursor: pointer"
+    >more_vert</mat-icon>
     <mat-card-header>
-      <mat-icon mat-card-avatar *ngIf="cardDetail?.icon" md-46>{{
+      <mat-icon  (click)="redirectToBlog()" mat-card-avatar *ngIf="cardDetail?.icon" md-46>{{
         cardDetail?.icon
       }}</mat-icon>
       <mat-icon mat-card-avatar *ngIf="!cardDetail?.icon" md-46>info</mat-icon>
     </mat-card-header>
     <mat-card-title (click)="$event.stopPropagation(); redirectToBlog()">{{ cardDetail?.topicName | titlecase }}</mat-card-title>
-    <mat-card-content>{{ cardDetail?.description }}</mat-card-content>
+    <mat-card-content  (click)="redirectToBlog()">{{ cardDetail?.description }}</mat-card-content>
+
   </mat-card>
 
   <ng-container *ngIf="loggedIn && last">
@@ -60,24 +64,7 @@
         <mat-label>Description</mat-label>
         <textarea matInput required formControlName="description"></textarea>
       </mat-form-field>
-      <span style="display: flex; gap: 1rem; flex-flow: row wrap">
-        <label for="image_uploads">{{ fileName }} </label>
-        <input
-          type="file"
-          id="image_uploads"
-          name="image_uploads"
-          accept=".jpg, .jpeg, .png, .svg"
-          hidden
-          (change)="iconChoosen($event)"
-        />
-        <button
-          mat-button
-          class="btn-primary uploadIcon"
-          style="height: 60%; align-self: center"
-        >
-          Upload
-        </button>
-      </span>
+      
     </form>
   </div>
   <div mat-dialog-actions class="btnsGap" style="margin-top: 0.5rem">

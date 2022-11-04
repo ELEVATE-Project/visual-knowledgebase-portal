@@ -33,6 +33,7 @@ import { CoreModule } from './core/core.module';
 import { MatButtonModule } from '@angular/material/button';
 import { ApiInterceptor } from './core/service/interceptor/apiInterceptor';
 import { ApiService } from './core/service';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +70,7 @@ import { ApiService } from './core/service';
     CKEditorModule,
     CoreModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     ApiService,
