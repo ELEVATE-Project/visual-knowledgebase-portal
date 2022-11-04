@@ -1,5 +1,5 @@
 <span style="display: flex; flex-direction: row; gap: 2rem">
-  <mat-card class="mat-elevation-z8" >
+  <mat-card class="mat-elevation-z8" (click)="redirectToBlog()">
     <mat-icon
       [matMenuTriggerFor]="menu"
       *ngIf="loggedIn"

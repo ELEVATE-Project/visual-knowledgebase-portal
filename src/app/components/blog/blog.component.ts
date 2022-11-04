@@ -20,6 +20,7 @@ import {
 import { urlConstants } from 'src/app/core/constants/urlconstants';
 import { ApiService, CurrentUserService, ToastService } from 'src/app/core/service';
 import * as _ from 'lodash-es';
+import { Location } from '@angular/common';
 
 
 // interface CategoryNode {
@@ -41,6 +42,7 @@ export class BlogComponent implements OnInit {
   @ViewChild('categoryDialog') categoryDialog: TemplateRef<any> | undefined;
   @ViewChild('sugestionDialog') sugestionDialog: TemplateRef<any> | undefined;
   public Editor = ClassicEditor;
+  active:any;
   ckConfig = {
     toolbar: {
       items: [
@@ -89,6 +91,7 @@ export class BlogComponent implements OnInit {
     private toastService:ToastService,
     private ref: ChangeDetectorRef,
     public dialog: MatDialog,
+    public location : Location,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     // this.dataSource.data = TREE_DATA;
@@ -109,7 +112,6 @@ export class BlogComponent implements OnInit {
 
   async getUser(){
     this.userService.getUser().then((data) =>{
-
       if(data){
         this.loggedIn = true;
       }
@@ -212,7 +214,7 @@ export class BlogComponent implements OnInit {
   }
 
  onclickSubCategory(subcat: any) {
-
+    this.active = subcat.subCatId;
     this.clickedCategory = subcat.name
     this.clickedCategoryId = subcat.subCatId;
     this.previousCategory = subcat.topicId;
@@ -350,9 +352,8 @@ export class BlogComponent implements OnInit {
       this.ref.detectChanges();
     }, error => {
     })
-
-    
-
   }
-
+  back(){
+    this.location.back();
+  }
 }
