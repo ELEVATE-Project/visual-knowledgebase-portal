@@ -1,7 +1,12 @@
 
-<mat-card class="main">
+<div class="mat-spinner">
+  <mat-spinner *ngIf="loadSpinner" ></mat-spinner>
+</div>
+
+
+<mat-card class="main" *ngIf="!loadSpinner">
   <h1 style="font-weight: 500">
-    <mat-icon class="arrow_back_btn" (click)="back()">arrow_back  </mat-icon>{{topicName | titlecase}} / {{clickedCategory}}
+    <mat-icon class="arrow_back_btn" (click)="back()">arrow_back  </mat-icon>{{clickedCategory  | titlecase}}
 
   </h1>
   <hr />

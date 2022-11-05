@@ -59,7 +59,7 @@ export class BlogComponent implements OnInit {
     },
   };
   sub_category: any = {};
-
+  loadSpinner = false;
   subCategoryIds: any;
   previousCategory: string ="";
   loadash = _;
@@ -105,12 +105,19 @@ export class BlogComponent implements OnInit {
     this.previousCategory =  this.topicId;
     this.clickedCategory = this.topicName;
     this.clickedCategoryId = this.topicId;
+  
     this.getUser()
     this.open()
     this.getSubCategory()
   }
 
+
+  loadData(data:any){
+    this.loadSpinner = data;
+  }
+
   async getUser(){
+    
     this.userService.getUser().then((data) =>{
       if(data){
         this.loggedIn = true;
@@ -132,7 +139,7 @@ export class BlogComponent implements OnInit {
   }
 
   getSubCategory() {
-
+    
     const config = {
       url: urlConstants.readsubTopic + this.topicId
 
@@ -142,7 +149,11 @@ export class BlogComponent implements OnInit {
       url: urlConstants.getTopics
     }
     this.apiService.post(configRead).subscribe(data => {
+      if(!data){
+        this.loadData(true)
+      }
       data.result.forEach((ele: any) => {
+        this.loadData(false)
         if (this.topicId == ele._id) {
           if(ele.suggestionId){
             const config1 = {
@@ -151,16 +162,19 @@ export class BlogComponent implements OnInit {
             this.apiService.get(config1).subscribe(data => {
               this.dataSource.data[0].blog = data.result[0].blog;
             }, error => {
+              
             })
           }
           this.ref.detectChanges();
         }
       });
 
+    },error => {
     })
 
 
     this.apiService.post(config).subscribe(data => {
+
       this.category[0] = {}
       this.category[0]["name"] = this.topicName
       let childrenArray: any = []
