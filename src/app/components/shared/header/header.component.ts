@@ -39,6 +39,7 @@ export class HeaderComponent implements OnInit,OnDestroy {
     });
   }
   logout(){
+    this.auth = 'Login';
     this.userService.deleteUser().then(data =>{
     })
   }
