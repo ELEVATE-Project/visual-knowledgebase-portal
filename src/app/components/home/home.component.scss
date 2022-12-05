@@ -11,3 +11,10 @@
 .card{
     margin: 1rem 1rem;
 }
+
+:host::ng-deep{
+    .mat-card-title{
+        font-size: 20px;
+        line-height: 1.2;
+    }
+}
